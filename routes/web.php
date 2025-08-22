@@ -48,8 +48,13 @@ Route::prefix('activities')->name('activities.')->middleware(['auth'])->group(fu
 Route::get('/about', [App\Http\Controllers\About\AboutController::class, 'index'])->name('about');
 
 // Dashboard routes
-Route::middleware(['auth', 'smart.admin.verified'])->group(function () {
+Route::middleware(['auth', 'smart.verified'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+});
+
+// Admin Dashboard (separate route)
+Route::middleware(['auth', 'smart.admin.verified'])->group(function () {
+    Route::get('/admin-dashboard', [App\Http\Controllers\DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
 });
 
 Route::middleware('auth')->group(function () {

@@ -62,4 +62,37 @@ class DashboardController extends Controller
             'registrations'
         ));
     }
+
+    /**
+     * Display admin dashboard
+     */
+    public function adminDashboard(): View
+    {
+        $user = Auth::user();
+        
+        // Admin stats
+        $totalUsers = \App\Models\User::count();
+        $totalEvents = \App\Models\Event::count();
+        $totalRegistrations = EventRegistration::count();
+        
+        // Recent activities across all users
+        $recentActivities = Activity::with('user')
+            ->orderBy('created_at', 'desc')
+            ->limit(15)
+            ->get();
+
+        // Recent registrations
+        $recentRegistrations = EventRegistration::with(['user', 'event'])
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+
+        return view('dashboard-admin', compact(
+            'totalUsers',
+            'totalEvents', 
+            'totalRegistrations',
+            'recentActivities',
+            'recentRegistrations'
+        ));
+    }
 }
