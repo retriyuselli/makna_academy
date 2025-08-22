@@ -47,6 +47,28 @@ chmod +x deploy-shield-hostinger.sh
 
 ## Jika Masih Error:
 
+### Error 403 Forbidden:
 ```bash
 ./quick-403-fix.sh
+```
+
+### Error CollisionServiceProvider not found:
+```bash
+# Quick fix
+rm -rf vendor composer.lock
+composer2 clear-cache
+composer2 install --no-dev --optimize-autoloader
+
+# Atau gunakan script
+chmod +x fix-collision-error.sh
+./fix-collision-error.sh
+```
+
+### Error composer dependencies:
+```bash
+# Force reinstall
+rm -rf vendor composer.lock
+composer2 update --no-dev --optimize-autoloader
+php artisan migrate --force
+php artisan config:clear
 ```
