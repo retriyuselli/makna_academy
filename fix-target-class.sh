@@ -15,7 +15,7 @@ rm -rf storage/framework/cache/data/*
 rm -rf storage/framework/views/*
 
 echo "🔄 Step 3: Regenerate composer autoload..."
-composer dump-autoload --no-dev --optimize
+composer2 dump-autoload --no-dev --optimize
 
 echo "🔄 Step 4: Fix config step by step..."
 php artisan config:clear 2>/dev/null || echo "Config clear skipped"
