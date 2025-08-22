@@ -7,17 +7,51 @@
 
         <title>{{ config('app.name', 'Makna Academy') }} - Authentication</title>
 
+        <!-- Google Fonts - Poppins (preload untuk performa optimal) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        
         <!-- Tailwind CSS CDN -->
         <script src="https://cdn.tailwindcss.com"></script>
+        
+        <!-- Configure Tailwind to use Poppins sebagai default font -->
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            'sans': ['Poppins', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Arial', 'sans-serif'],
+                            'poppins': ['Poppins', 'sans-serif']
+                        }
+                    }
+                }
+            }
+        </script>
         
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-        <!-- Google Fonts - Poppins -->
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
         <style>
-            body { font-family: 'Poppins', sans-serif; }
+            /* Force Poppins font untuk semua elemen */
+            *, *::before, *::after {
+                font-family: 'Poppins', sans-serif !important;
+            }
+            
+            body {
+                font-family: 'Poppins', sans-serif !important;
+                font-weight: 400;
+                letter-spacing: 0.01em;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+                font-family: 'Poppins', sans-serif !important;
+                font-weight: 600;
+            }
+            
+            input, button, select, textarea {
+                font-family: 'Poppins', sans-serif !important;
+            }
             
             /* Custom styling for auth forms */
             .auth-container {
