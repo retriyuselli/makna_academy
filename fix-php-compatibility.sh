@@ -17,13 +17,13 @@ rm -f composer.lock
 
 echo ""
 echo "📋 Step 2: Update composer dependencies for PHP 8.2..."
-composer update --no-dev --optimize-autoloader
+composer2 update --no-dev --optimize-autoloader
 
 echo ""
 echo "📋 Step 3: If above fails, try specific package downgrade..."
 if [ $? -ne 0 ]; then
     echo "Trying to downgrade openspout package..."
-    composer require "openspout/openspout:^4.20" --no-dev --update-with-dependencies
+    composer2 require "openspout/openspout:^4.20" --no-dev --update-with-dependencies
 fi
 
 echo ""

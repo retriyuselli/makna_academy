@@ -18,7 +18,7 @@ git stash list
 
 echo ""
 echo "📋 Step 4: Install new Composer dependencies..."
-composer install --no-dev --optimize-autoloader
+composer2 install --no-dev --optimize-autoloader
 
 echo ""
 echo "📋 Step 5: Run database migrations..."
