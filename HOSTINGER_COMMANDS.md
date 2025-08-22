@@ -1,5 +1,31 @@
 # 🏠 HOSTINGER DEPLOYMENT COMMANDS
 
+## 🚨 URGENT FIX - CollisionServiceProvider Error:
+
+### PILIHAN 1: Quick Fix (Recommended) 🔕
+
+```bash
+git pull origin main
+chmod +x disable-collision.sh
+./disable-collision.sh
+```
+
+### PILIHAN 2: Manual Fix 🔧
+
+```bash
+git pull origin main
+chmod +x manual-fix-collision.sh
+./manual-fix-collision.sh
+```
+
+### PILIHAN 3: Emergency Full Reset 🚨
+
+```bash
+git pull origin main
+chmod +x emergency-fix-collision.sh
+./emergency-fix-collision.sh
+```
+
 ## Quick Fix untuk Error Composer di Hostinger:
 
 ```bash
