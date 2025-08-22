@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('event_registrations', function (Blueprint $table) {
-            // Check if columns don't exist before adding them
+            // Add down payment amount first
+            if (!Schema::hasColumn('event_registrations', 'down_payment_amount')) {
+                $table->decimal('down_payment_amount', 15, 2)->nullable()->after('payment_amount');
+            }
+            // Then add remaining amount after down payment amount
             if (!Schema::hasColumn('event_registrations', 'remaining_amount')) {
                 $table->decimal('remaining_amount', 15, 2)->nullable()->after('down_payment_amount');
             }
@@ -38,6 +42,7 @@ return new class extends Migration
     {
         Schema::table('event_registrations', function (Blueprint $table) {
             $columns = [
+                'down_payment_amount',
                 'remaining_amount', 
                 'down_payment_date', 
                 'down_payment_proof',
