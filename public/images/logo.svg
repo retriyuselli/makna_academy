@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Circle Background -->
+    <circle cx="256" cy="256" r="248" fill="#4F46E5" fill-opacity="0.1" stroke="#4F46E5" stroke-width="16"/>
+    
+    <!-- Book Pages -->
+    <path d="M156 156C156 145.507 164.507 137 175 137H337C347.493 137 356 145.507 356 156V356C356 366.493 347.493 375 337 375H175C164.507 375 156 366.493 156 356V156Z" fill="white" stroke="#4F46E5" stroke-width="16"/>
+    
+    <!-- Book Lines -->
+    <path d="M196 196H316" stroke="#4F46E5" stroke-width="16" stroke-linecap="round"/>
+    <path d="M196 236H316" stroke="#4F46E5" stroke-width="16" stroke-linecap="round"/>
+    <path d="M196 276H316" stroke="#4F46E5" stroke-width="16" stroke-linecap="round"/>
+    <path d="M196 316H266" stroke="#4F46E5" stroke-width="16" stroke-linecap="round"/>
+    
+    <!-- Graduation Cap -->
+    <path d="M256 116L356 166L256 216L156 166L256 116Z" fill="#4F46E5"/>
+    <path d="M236 196V256L256 266L276 256V196" stroke="white" stroke-width="8" stroke-linecap="round"/>
+</svg>
