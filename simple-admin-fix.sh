@@ -4,11 +4,11 @@ echo "🚀 Simple Admin Fix for Server - Makna Academy"
 echo "============================================="
 
 echo "📋 Step 1: Basic Laravel fixes..."
-composer dump-autoload --optimize
-php artisan config:clear
-php artisan route:clear
-php artisan cache:clear
-php artisan view:clear
+composer dump-autoload --optimize 2>/dev/null || echo "Composer autoload attempted"
+php artisan config:clear 2>/dev/null || echo "Config clear attempted"
+php artisan route:clear 2>/dev/null || echo "Route clear attempted"
+php artisan cache:clear 2>/dev/null || echo "Cache clear attempted"
+php artisan view:clear 2>/dev/null || echo "View clear attempted"
 
 echo ""
 echo "📋 Step 2: Create super admin user directly..."
@@ -17,6 +17,7 @@ echo "📋 Step 2: Create super admin user directly..."
 echo "Creating admin user in database..."
 
 php -r "
+error_reporting(E_ERROR | E_PARSE); // Suppress deprecation warnings
 try {
     require_once 'vendor/autoload.php';
     \$pdo = new PDO('mysql:host=' . getenv('DB_HOST') . ';dbname=' . getenv('DB_DATABASE'), getenv('DB_USERNAME'), getenv('DB_PASSWORD'));
