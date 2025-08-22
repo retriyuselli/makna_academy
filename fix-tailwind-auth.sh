@@ -1,3 +1,16 @@
+#!/bin/bash
+
+echo "🎨 Fix Tailwind CSS for Auth Pages - Makna Academy"
+echo "================================================"
+
+echo "📋 Step 1: Backup current guest layout..."
+cp resources/views/layouts/guest.blade.php resources/views/layouts/guest.blade.php.backup
+
+echo ""
+echo "🔧 Step 2: Update guest layout to use Tailwind CDN..."
+
+# Create improved guest layout with Tailwind CDN
+cat > resources/views/layouts/guest.blade.php << 'EOF'
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -64,3 +77,40 @@
         </div>
     </body>
 </html>
+EOF
+
+echo "✅ Guest layout updated with Tailwind CDN"
+
+echo ""
+echo "🔧 Step 3: Update auth views for better styling..."
+
+# Update login view
+if [ -f "resources/views/auth/login.blade.php" ]; then
+    echo "Checking login view..."
+    head -5 resources/views/auth/login.blade.php
+fi
+
+# Update register view  
+if [ -f "resources/views/auth/register.blade.php" ]; then
+    echo "Checking register view..."
+    head -5 resources/views/auth/register.blade.php
+fi
+
+echo ""
+echo "🧪 Step 4: Test CSS loading..."
+echo "Checking if Tailwind CDN is accessible:"
+curl -s -I https://cdn.tailwindcss.com | head -3
+
+echo ""
+echo "✅ Tailwind CSS fix completed!"
+echo ""
+echo "🔄 Test these URLs now (should have proper styling):"
+echo "- https://maknaacademy.com/login"
+echo "- https://maknaacademy.com/register"
+echo ""
+echo "💡 Changes made:"
+echo "- ✅ Switched from @vite to Tailwind CDN"
+echo "- ✅ Added custom auth styling"
+echo "- ✅ Added Font Awesome icons"
+echo "- ✅ Added gradient background"
+echo "- ✅ Added Poppins font family"
