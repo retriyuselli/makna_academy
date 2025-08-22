@@ -48,11 +48,13 @@ chmod +x deploy-shield-hostinger.sh
 ## Jika Masih Error:
 
 ### Error 403 Forbidden:
+
 ```bash
 ./quick-403-fix.sh
 ```
 
 ### Error CollisionServiceProvider not found:
+
 ```bash
 # Quick fix
 rm -rf vendor composer.lock
@@ -65,6 +67,7 @@ chmod +x fix-collision-error.sh
 ```
 
 ### Error composer dependencies:
+
 ```bash
 # Force reinstall
 rm -rf vendor composer.lock
