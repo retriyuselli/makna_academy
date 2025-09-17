@@ -29,8 +29,27 @@
             }
         </script>
         
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <!-- Font Awesome - Multiple CDN Sources for Reliability -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        
+        <style>
+            /* FontAwesome Fallback CSS */
+            .fas, .fab, .far, .fa {
+                font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", serif !important;
+                font-weight: 900;
+                display: inline-block;
+            }
+            
+            /* Specific icon fallbacks if CDN fails */
+            .fa-sign-in-alt:before { content: "→"; font-family: Arial, sans-serif; }
+            .fa-envelope:before { content: "✉"; font-family: Arial, sans-serif; }
+            .fa-lock:before { content: "🔒"; font-family: Arial, sans-serif; }
+            .fa-user-plus:before { content: "+"; font-family: Arial, sans-serif; }
+            .fa-graduation-cap:before { content: "🎓"; font-family: Arial, sans-serif; }
+            .fa-shield-alt:before { content: "🛡"; font-family: Arial, sans-serif; }
+            .fa-bars:before { content: "☰"; font-family: Arial, sans-serif; }
+            .fa-times:before { content: "✕"; font-family: Arial, sans-serif; }
 
         <style>
             /* Force Poppins font untuk semua elemen */
