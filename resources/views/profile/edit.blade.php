@@ -37,20 +37,17 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Foto Profile</label>
                                 <div class="flex items-center space-x-6">
-                                    <div class="w-20 h-20 bg-indigo-600 rounded-full flex items-center justify-center overflow-hidden">
+                                    <div class="w-20 h-20 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center border-2 border-gray-200">
                                         <x-user-avatar :user="$user" :size="80" class="flex-shrink-0" />
                                     </div>
-                                    <div>
+                                    <div class="flex-1">
                                         <input type="file" name="avatar" id="avatar" accept="image/*" class="hidden" onchange="previewAvatar(this)">
                                         <label for="avatar"
-                                            class="cursor-pointer bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">
+                                            class="inline-flex items-center cursor-pointer bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300">
+                                            <i class="fas fa-camera mr-2"></i>
                                             Ubah Foto
                                         </label>
-                                        <p class="text-xs text-gray-500 item-center mt-3">Max 1MB (JPG, PNG)</p>
-                                        @if(config('app.debug') && $user->avatar_url)
-                                            <p class="text-xs text-gray-400 mt-1">Debug: {{ $user->avatar_url }}</p>
-                                            <p class="text-xs text-gray-400">Generated: {{ user_avatar($user, 80) }}</p>
-                                        @endif
+                                        <p class="text-xs text-gray-500 mt-2">Format: JPG, PNG. Maksimal 1MB</p>
                                     </div>
                                 </div>
                                 @error('avatar')
@@ -60,10 +57,9 @@
 
                             <!-- Name -->
                             <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nama
-                                    Lengkap</label>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
                                 <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                                     required>
                                 @error('name')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -72,9 +68,9 @@
 
                             <!-- Email -->
                             <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
                                 <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                                     required>
                                 @error('email')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -83,11 +79,11 @@
 
                             <!-- Phone -->
                             <div>
-                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Nomor
-                                    Telepon</label>
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Nomor Telepon</label>
                                 <input type="text" name="phone" id="phone"
                                     value="{{ old('phone', $user->phone) }}"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                                    placeholder="Contoh: 081234567890">
                                 @error('phone')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
@@ -95,11 +91,10 @@
 
                             <!-- Date of Birth -->
                             <div>
-                                <label for="date_of_birth" class="block text-sm font-medium text-gray-700 mb-1">Tanggal
-                                    Lahir</label>
+                                <label for="date_of_birth" class="block text-sm font-medium text-gray-700 mb-2">Tanggal Lahir</label>
                                 <input type="date" name="date_of_birth" id="date_of_birth"
                                     value="{{ old('date_of_birth', $user->date_of_birth ? date('Y-m-d', strtotime($user->date_of_birth)) : '') }}"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors">
                                 @error('date_of_birth')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
@@ -138,10 +133,11 @@
                             </div>
 
                             <!-- Submit Button -->
-                            <div class="flex justify-end">
+                            <div class="flex justify-end pt-4">
                                 <button type="submit"
-                                    class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">
-                                    <i class="fas fa-save mr-2"></i>Simpan Perubahan
+                                    class="inline-flex items-center bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 font-medium">
+                                    <i class="fas fa-save mr-2"></i>
+                                    Simpan Perubahan
                                 </button>
                             </div>
                         </form>
@@ -161,15 +157,14 @@
 
                             <!-- Current Password -->
                             <div>
-                                <label for="current_password" class="block text-sm font-medium text-gray-700 mb-1">Password
-                                    Saat Ini</label>
+                                <label for="current_password" class="block text-sm font-medium text-gray-700 mb-2">Password Saat Ini</label>
                                 <div class="relative">
                                     <input type="password" name="current_password" id="current_password"
-                                        class="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        class="w-full pl-4 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                                         autocomplete="current-password"
                                         required>
                                     <button type="button" onclick="togglePassword('current_password')"
-                                        class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-gray-700">
+                                        class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-gray-700 transition-colors">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </div>
@@ -180,16 +175,15 @@
 
                             <!-- New Password -->
                             <div>
-                                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password
-                                    Baru</label>
+                                <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password Baru</label>
                                 <div class="relative">
                                     <input type="password" name="password" id="password"
-                                        class="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        class="w-full pl-4 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                                         autocomplete="new-password"
                                         required
                                         minlength="8">
                                     <button type="button" onclick="togglePassword('password')"
-                                        class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-gray-700">
+                                        class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-gray-700 transition-colors">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </div>
@@ -201,15 +195,14 @@
 
                             <!-- Confirm Password -->
                             <div>
-                                <label for="password_confirmation"
-                                    class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password Baru</label>
+                                <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">Konfirmasi Password Baru</label>
                                 <div class="relative">
                                     <input type="password" name="password_confirmation" id="password_confirmation"
-                                        class="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        class="w-full pl-4 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                                         autocomplete="new-password"
                                         required>
                                     <button type="button" onclick="togglePassword('password_confirmation')"
-                                        class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-gray-700">
+                                        class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-gray-700 transition-colors">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </div>
@@ -219,10 +212,11 @@
                             </div>
 
                             <!-- Submit Button -->
-                            <div class="flex justify-end">
+                            <div class="flex justify-end pt-4">
                                 <button type="submit"
-                                    class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition duration-300">
-                                    <i class="fas fa-key mr-2"></i>Update Password
+                                    class="inline-flex items-center bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-300 font-medium">
+                                    <i class="fas fa-key mr-2"></i>
+                                    Update Password
                                 </button>
                             </div>
                         </form>
@@ -323,6 +317,21 @@
 
         function previewAvatar(input) {
             if (input.files && input.files[0]) {
+                // Validate file size (1MB = 1048576 bytes)
+                if (input.files[0].size > 1048576) {
+                    alert('Ukuran file terlalu besar. Maksimal 1MB.');
+                    input.value = '';
+                    return;
+                }
+
+                // Validate file type
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                if (!allowedTypes.includes(input.files[0].type)) {
+                    alert('Format file tidak didukung. Gunakan JPG, JPEG, atau PNG.');
+                    input.value = '';
+                    return;
+                }
+
                 const reader = new FileReader();
                 
                 reader.onload = function(e) {
@@ -333,11 +342,15 @@
                     const img = document.createElement('img');
                     img.src = e.target.result;
                     img.className = 'w-20 h-20 rounded-full object-cover';
-                    img.alt = 'Preview';
+                    img.alt = 'Preview Avatar';
                     
-                    // Replace content
-                    avatarContainer.innerHTML = '';
-                    avatarContainer.appendChild(img);
+                    // Replace content with smooth transition
+                    avatarContainer.style.opacity = '0.5';
+                    setTimeout(() => {
+                        avatarContainer.innerHTML = '';
+                        avatarContainer.appendChild(img);
+                        avatarContainer.style.opacity = '1';
+                    }, 150);
                 };
                 
                 reader.readAsDataURL(input.files[0]);
