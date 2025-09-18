@@ -84,7 +84,6 @@ class UserResource extends Resource
                             ->visibleOn('edit'),
                         Forms\Components\TextInput::make('password')
                             ->password()
-                            ->required()
                             ->maxLength(255)
                             ->dehydrateStateUsing(fn($state) => $state ? \Illuminate\Support\Facades\Hash::make($state) : null)
                             ->label('Password')
