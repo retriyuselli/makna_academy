@@ -30,6 +30,9 @@ class ProfileController extends Controller
         $user = $request->user();
         $data = $request->validated();
 
+        // Ensure password is never updated through profile update
+        unset($data['password'], $data['password_confirmation'], $data['current_password']);
+
         if ($request->hasFile('avatar')) {
             // Delete old avatar if exists
             if ($user->avatar_url) {
