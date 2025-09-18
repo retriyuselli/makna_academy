@@ -53,6 +53,10 @@
                                 @error('avatar')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
+                                
+                                @if(session('avatar_error'))
+                                    <p class="text-red-500 text-sm mt-1">{{ session('avatar_error') }}</p>
+                                @endif
                             </div>
 
                             <!-- Name -->
@@ -295,6 +299,17 @@
              role="alert">
             <i class="fas fa-check-circle mr-2"></i>
             <span>Profile berhasil diperbarui!</span>
+        </div>
+    @endif
+
+    @if (session('status') === 'avatar-updated')
+        <div x-data="{ show: true }"
+             x-show="show"
+             x-init="setTimeout(() => show = false, 5000)"
+             class="fixed bottom-4 right-4 bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center"
+             role="alert">
+            <i class="fas fa-camera mr-2"></i>
+            <span>Foto profil berhasil diperbarui!</span>
         </div>
     @endif
 

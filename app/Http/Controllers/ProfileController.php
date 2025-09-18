@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -33,21 +34,57 @@ class ProfileController extends Controller
         // Ensure password is never updated through profile update
         unset($data['password'], $data['password_confirmation'], $data['current_password']);
 
+        // Debug logging for avatar upload
+        if (config('app.debug')) {
+            Log::info('Profile update attempt:', [
+                'user_id' => $user->id,
+                'has_avatar_file' => $request->hasFile('avatar'),
+                'validated_data' => array_keys($data),
+                'current_avatar_url' => $user->avatar_url
+            ]);
+        }
+
         if ($request->hasFile('avatar')) {
+            $avatarFile = $request->file('avatar');
+            
+            // Debug avatar file details
+            if (config('app.debug')) {
+                Log::info('Avatar file details:', [
+                    'original_name' => $avatarFile->getClientOriginalName(),
+                    'size' => $avatarFile->getSize(),
+                    'mime_type' => $avatarFile->getMimeType(),
+                    'is_valid' => $avatarFile->isValid()
+                ]);
+            }
+
             // Delete old avatar if exists
             if ($user->avatar_url) {
                 // Handle different avatar_url formats
                 if (str_starts_with($user->avatar_url, 'avatars/')) {
                     Storage::disk('public')->delete($user->avatar_url);
+                    if (config('app.debug')) {
+                        Log::info('Deleted old avatar:', ['path' => $user->avatar_url]);
+                    }
                 } else if (!filter_var($user->avatar_url, FILTER_VALIDATE_URL)) {
                     // Local file without avatars/ prefix
                     Storage::disk('public')->delete('avatars/' . $user->avatar_url);
+                    if (config('app.debug')) {
+                        Log::info('Deleted old avatar:', ['path' => 'avatars/' . $user->avatar_url]);
+                    }
                 }
             }
             
             // Store new avatar with proper path
-            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $avatarPath = $avatarFile->store('avatars', 'public');
             $data['avatar_url'] = $avatarPath;
+            
+            if (config('app.debug')) {
+                Log::info('New avatar stored:', [
+                    'path' => $avatarPath,
+                    'full_path' => storage_path('app/public/' . $avatarPath),
+                    'file_exists' => file_exists(storage_path('app/public/' . $avatarPath))
+                ]);
+            }
             
             // Remove 'avatar' from data since we use 'avatar_url'
             unset($data['avatar']);
@@ -61,7 +98,20 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        if (config('app.debug')) {
+            Log::info('Profile updated successfully:', [
+                'user_id' => $user->id,
+                'new_avatar_url' => $user->avatar_url
+            ]);
+        }
+
+        // Set appropriate success message
+        $message = 'profile-updated';
+        if ($request->hasFile('avatar')) {
+            $message = 'avatar-updated';
+        }
+
+        return Redirect::route('profile.edit')->with('status', $message);
     }
 
     /**

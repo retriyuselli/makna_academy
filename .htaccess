@@ -1,34 +1,21 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # TEMPORARILY DISABLED FOR DEBUGGING
     # Redirect ke HTTPS
-    RewriteCond %{HTTPS} off
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # Redirect www ke non-www
-    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+    # RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    # RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
-    # Handle requests that already go to public folder
-    RewriteCond %{REQUEST_URI} ^/public/(.*)$
-    RewriteRule ^public/(.*)$ /$1 [R=301,L]
-
-    # Redirect all requests to public folder
+    # Arahkan semua request ke folder public
     RewriteCond %{REQUEST_URI} !^/public/
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ /public/$1 [L]
-
-    # Handle root request
-    RewriteCond %{REQUEST_URI} ^/$
-    RewriteRule ^$ /public/index.php [L]
+    RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
 
-# Prevent direct access to sensitive files
-<FilesMatch "\.(env|htaccess|htpasswd|git|svn|log)$">
-    Order Allow,Deny
-    Deny from all
+# Blokir akses langsung ke file sensitif
+<FilesMatch "(\.(htaccess|htpasswd|env)|composer\.json|composer\.lock|package\.json|package-lock\.json)$">
+    Require all denied
 </FilesMatch>
-
-# Prevent access to Laravel directories
-RedirectMatch 403 ^/(app|bootstrap|config|database|resources|routes|storage|tests|vendor)/
