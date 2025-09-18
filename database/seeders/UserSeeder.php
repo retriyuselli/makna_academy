@@ -86,33 +86,11 @@ class UserSeeder extends Seeder
             ]
         );
 
-        $customer3 = User::firstOrCreate(
-            ['email' => 'dewi.lestari@gmail.com'],
-            [
-                'name' => 'Dewi Lestari',
-                'avatar_url' => null,
-                'password' => Hash::make('password123'),
-                'phone' => '081234567895',
-                'date_of_birth' => '2001-02-14',
-                'gender' => 'female',
-                'role' => 'customer',
-                'email_verified_at' => now(),
-            ]
-        );
-
-        // Create additional customer users using factory
-        $existingUsersCount = User::count();
-        $targetUsersCount = 20; // 6 manual users + 14 factory users
-        
-        if ($existingUsersCount < $targetUsersCount) {
-            $usersToCreate = $targetUsersCount - $existingUsersCount;
-            User::factory()->count($usersToCreate)->create(); // Factory sudah auto set role customer
-        }
-
+        // Total: 5 users (1 super_admin + 2 admin + 2 customer)
         $this->command->info('UserSeeder completed successfully!');
-        $this->command->info('Created users with roles:');
+        $this->command->info('Created 5 users total:');
         $this->command->info('- Super Admin: 1 user');
-        $this->command->info('- Admin: 2 users');
-        $this->command->info('- Customer: ' . (User::where('role', 'customer')->count()) . ' users');
+        $this->command->info('- Admin: 2 users');  
+        $this->command->info('- Customer: 2 users');
     }
 }

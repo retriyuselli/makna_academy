@@ -37,23 +37,16 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Foto Profile</label>
                                 <div class="flex items-center space-x-6">
-                                    <div class="w-20 h-20 bg-indigo-600 rounded-full flex items-center justify-center">
-                                        @if ($user->avatar)
-                                            <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}"
-                                                class="w-20 h-20 rounded-full object-cover">
-                                        @else
-                                            <span class="text-white text-2xl font-bold">
-                                                {{ strtoupper(substr($user->name, 0, 2)) }}
-                                            </span>
-                                        @endif
+                                    <div class="w-20 h-20 bg-indigo-600 rounded-full flex items-center justify-center overflow-hidden">
+                                        <x-user-avatar :user="$user" :size="80" class="flex-shrink-0" />
                                     </div>
                                     <div>
-                                        <input type="file" name="avatar" id="avatar" accept="image/*" class="hidden">
+                                        <input type="file" name="avatar" id="avatar" accept="image/*" class="hidden" onchange="previewAvatar(this)">
                                         <label for="avatar"
                                             class="cursor-pointer bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">
                                             Ubah Foto
                                         </label>
-                                        <p class="text-xs text-gray-500 item-center mt-3">Max 1MB</p>
+                                        <p class="text-xs text-gray-500 item-center mt-3">Max 1MB (JPG, PNG)</p>
                                     </div>
                                 </div>
                                 @error('avatar')
@@ -321,6 +314,29 @@
                 input.type = 'password';
                 icon.classList.remove('fa-eye-slash');
                 icon.classList.add('fa-eye');
+            }
+        }
+
+        function previewAvatar(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    // Find the avatar container and update it
+                    const avatarContainer = input.closest('.flex').querySelector('.w-20.h-20');
+                    
+                    // Create new image element
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'w-20 h-20 rounded-full object-cover';
+                    img.alt = 'Preview';
+                    
+                    // Replace content
+                    avatarContainer.innerHTML = '';
+                    avatarContainer.appendChild(img);
+                };
+                
+                reader.readAsDataURL(input.files[0]);
             }
         }
     </script>

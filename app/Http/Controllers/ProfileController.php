@@ -32,12 +32,22 @@ class ProfileController extends Controller
 
         if ($request->hasFile('avatar')) {
             // Delete old avatar if exists
-            if ($user->avatar) {
-                Storage::disk('public')->delete($user->avatar);
+            if ($user->avatar_url) {
+                // Handle different avatar_url formats
+                if (str_starts_with($user->avatar_url, 'avatars/')) {
+                    Storage::disk('public')->delete($user->avatar_url);
+                } else if (!filter_var($user->avatar_url, FILTER_VALIDATE_URL)) {
+                    // Local file without avatars/ prefix
+                    Storage::disk('public')->delete('avatars/' . $user->avatar_url);
+                }
             }
             
-            // Store new avatar
-            $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
+            // Store new avatar with proper path
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $data['avatar_url'] = $avatarPath;
+            
+            // Remove 'avatar' from data since we use 'avatar_url'
+            unset($data['avatar']);
         }
 
         $user->fill($data);
