@@ -59,19 +59,20 @@ class MonitorGoogleUsers extends Command
             $this->info('🔥 Recent Google Users:');
             $headers = ['Name', 'Email', 'Registered', 'Role', 'Verified', 'Avatar'];
             $rows = [];
-
+            
             foreach ($recentUsers as $user) {
-                $avatarStatus = $user->avatar ? '✅ Yes' : '❌ No';
+                $avatarStatus = $user->avatar_url ? '✅ Yes' : '❌ No';
+                
                 $rows[] = [
                     $user->name,
                     $user->email,
-                    $user->created_at->diffForHumans(),
-                    ucfirst($user->role),
-                    $user->email_verified_at ? '✅' : '❌',
+                    $user->created_at->format('d/m/Y'),
+                    $user->role,
+                    $user->email_verified_at ? '✅ Yes' : '❌ No',
                     $avatarStatus
                 ];
             }
-
+            
             $this->table($headers, $rows);
         } else {
             $this->comment('No Google users found yet.');

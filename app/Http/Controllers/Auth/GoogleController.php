@@ -33,7 +33,7 @@ class GoogleController extends Controller
             Log::info('Google User Data', [
                 'name' => $googleUser->name,
                 'email' => $googleUser->email,
-                'avatar' => $googleUser->avatar,
+                'avatar_url' => $googleUser->avatar,
                 'id' => $googleUser->id
             ]);
             
@@ -42,8 +42,8 @@ class GoogleController extends Controller
             
             if ($user) {
                 // User sudah ada, update avatar jika berubah dan login langsung
-                if ($user->avatar !== $googleUser->avatar) {
-                    $user->update(['avatar' => $googleUser->avatar]);
+                if ($user->avatar_url !== $googleUser->avatar) {
+                    $user->update(['avatar_url' => $googleUser->avatar]);
                 }
                 Auth::login($user);
                 return redirect()->intended('/')->with('success', 'Login berhasil dengan Google!');
@@ -56,7 +56,7 @@ class GoogleController extends Controller
                 // Update user yang sudah ada dengan google_id dan avatar
                 $existingUser->update([
                     'google_id' => $googleUser->id,
-                    'avatar' => $googleUser->avatar,
+                    'avatar_url' => $googleUser->avatar,
                     'email_verified_at' => $existingUser->email_verified_at ?? now(), // Auto verify jika belum
                 ]);
                 
@@ -69,7 +69,7 @@ class GoogleController extends Controller
                 'name' => $googleUser->name,
                 'email' => $googleUser->email,
                 'google_id' => $googleUser->id,
-                'avatar' => $googleUser->avatar,
+                'avatar_url' => $googleUser->avatar,
                 'password' => Hash::make(Str::random(12)), // Password random
                 'role' => 'customer',
                 'email_verified_at' => now(), // Auto verify karena Google sudah memverifikasi

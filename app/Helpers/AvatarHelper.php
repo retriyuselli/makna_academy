@@ -21,22 +21,35 @@ if (!function_exists('user_avatar')) {
         }
 
         // Jika ada avatar dari Google (URL)
-        if ($user->avatar && filter_var($user->avatar, FILTER_VALIDATE_URL)) {
+        if ($user->avatar_url && filter_var($user->avatar_url, FILTER_VALIDATE_URL)) {
             // Jika URL Google, ubah size parameter
-            if (strpos($user->avatar, 'googleusercontent.com') !== false) {
-                return preg_replace('/=s\d+-c$/', "=s{$size}-c", $user->avatar);
+            if (strpos($user->avatar_url, 'googleusercontent.com') !== false) {
+                return preg_replace('/=s\d+-c$/', "=s{$size}-c", $user->avatar_url);
             }
-            return $user->avatar;
+            return $user->avatar_url;
         }
 
         // Jika ada avatar lokal (path atau storage)
-        if ($user->avatar && !filter_var($user->avatar, FILTER_VALIDATE_URL)) {
-            // Cek apakah ada di storage
-            if (str_starts_with($user->avatar, 'avatars/')) {
-                return asset('storage/' . $user->avatar);
+        if ($user->avatar_url && !filter_var($user->avatar_url, FILTER_VALIDATE_URL)) {
+            // Cek apakah sudah ada prefix avatars/
+            if (str_starts_with($user->avatar_url, 'avatars/')) {
+                $filePath = storage_path('app/public/' . $user->avatar_url);
+                if (file_exists($filePath)) {
+                    return asset('storage/' . $user->avatar_url);
+                }
+            } else {
+                // Cek langsung di root storage/app/public/
+                $filePathRoot = storage_path('app/public/' . $user->avatar_url);
+                if (file_exists($filePathRoot)) {
+                    return asset('storage/' . $user->avatar_url);
+                }
+                
+                // Cek dengan path avatars/
+                $filePathAvatars = storage_path('app/public/avatars/' . $user->avatar_url);
+                if (file_exists($filePathAvatars)) {
+                    return asset('storage/avatars/' . $user->avatar_url);
+                }
             }
-            // Atau langsung return asset
-            return asset('storage/avatars/' . $user->avatar);
         }
 
         // Fallback ke default avatar berdasarkan nama

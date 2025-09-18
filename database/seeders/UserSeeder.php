@@ -18,12 +18,13 @@ class UserSeeder extends Seeder
             ['email' => 'admin@maknaacademy.com'],
             [
                 'name' => 'Super Administrator',
-                'avatar' => null,
+                'avatar_url' => null,
                 'password' => Hash::make('password123'),
                 'phone' => '081234567890',
                 'date_of_birth' => '1990-01-01',
                 'gender' => 'male',
                 'role' => 'super_admin',
+                'email_verified_at' => now(),
             ]
         );
 
@@ -32,12 +33,13 @@ class UserSeeder extends Seeder
             ['email' => 'ahmad.wijaya@maknaacademy.com'],
             [
                 'name' => 'Dr. Ahmad Wijaya',
-                'avatar' => null,
+                'avatar_url' => null,
                 'password' => Hash::make('password123'),
                 'phone' => '081234567891',
                 'date_of_birth' => '1985-03-15',
                 'gender' => 'male',
                 'role' => 'admin',
+                'email_verified_at' => now(),
             ]
         );
 
@@ -45,12 +47,13 @@ class UserSeeder extends Seeder
             ['email' => 'siti.nurhaliza@maknaacademy.com'],
             [
                 'name' => 'Prof. Siti Nurhaliza',
-                'avatar' => null,
+                'avatar_url' => null,
                 'password' => Hash::make('password123'),
                 'phone' => '081234567892',
                 'date_of_birth' => '1988-07-20',
                 'gender' => 'female',
                 'role' => 'admin',
+                'email_verified_at' => now(),
             ]
         );
 
@@ -59,12 +62,13 @@ class UserSeeder extends Seeder
             ['email' => 'budi.santoso@gmail.com'],
             [
                 'name' => 'Budi Santoso',
-                'avatar' => null,
+                'avatar_url' => null,
                 'password' => Hash::make('password123'),
                 'phone' => '081234567893',
                 'date_of_birth' => '2000-05-10',
                 'gender' => 'male',
                 'role' => 'customer',
+                'email_verified_at' => now(),
             ]
         );
 
@@ -72,12 +76,13 @@ class UserSeeder extends Seeder
             ['email' => 'andi.pratama@gmail.com'],
             [
                 'name' => 'Andi Pratama',
-                'avatar' => null,
+                'avatar_url' => null,
                 'password' => Hash::make('password123'),
                 'phone' => '081234567894',
                 'date_of_birth' => '1999-11-25',
                 'gender' => 'male',
                 'role' => 'customer',
+                'email_verified_at' => now(),
             ]
         );
 
@@ -85,12 +90,13 @@ class UserSeeder extends Seeder
             ['email' => 'dewi.lestari@gmail.com'],
             [
                 'name' => 'Dewi Lestari',
-                'avatar' => null,
+                'avatar_url' => null,
                 'password' => Hash::make('password123'),
                 'phone' => '081234567895',
                 'date_of_birth' => '2001-02-14',
                 'gender' => 'female',
                 'role' => 'customer',
+                'email_verified_at' => now(),
             ]
         );
 

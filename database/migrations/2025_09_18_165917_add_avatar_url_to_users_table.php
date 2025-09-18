@@ -12,10 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('phone')->nullable()->after('email');
-            $table->date('date_of_birth')->nullable()->after('phone');
-            $table->enum('gender', ['male', 'female'])->nullable()->after('date_of_birth');
-            $table->enum('role', ['admin', 'super_admin', 'customer'])->default('customer')->after('password');
+            $table->string(config('filament-edit-profile.avatar_column', 'avatar_url'))->nullable();
         });
     }
 
@@ -25,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['phone', 'date_of_birth', 'avatar_url', 'gender', 'role']);
+            $table->dropColumn(config('filament-edit-profile.avatar_column', 'avatar_url'));
         });
     }
 };

@@ -51,8 +51,8 @@ class DebugAvatarDisplay extends Command
         $this->newLine();
         
         $this->info('🖼️ Avatar Details:');
-        $this->comment("Raw Avatar Value: " . ($user->avatar ?? 'NULL'));
-        $this->comment("Is URL: " . (filter_var($user->avatar, FILTER_VALIDATE_URL) ? '✅ Yes' : '❌ No'));
+        $this->comment("Raw Avatar Value: " . ($user->avatar_url ?? 'NULL'));
+        $this->comment("Is URL: " . (filter_var($user->avatar_url, FILTER_VALIDATE_URL) ? '✅ Yes' : '❌ No'));
         $this->newLine();
         
         $this->info('🎯 Helper Function Results:');
