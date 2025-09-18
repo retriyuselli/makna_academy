@@ -47,6 +47,10 @@
                                             Ubah Foto
                                         </label>
                                         <p class="text-xs text-gray-500 item-center mt-3">Max 1MB (JPG, PNG)</p>
+                                        @if(config('app.debug') && $user->avatar_url)
+                                            <p class="text-xs text-gray-400 mt-1">Debug: {{ $user->avatar_url }}</p>
+                                            <p class="text-xs text-gray-400">Generated: {{ user_avatar($user, 80) }}</p>
+                                        @endif
                                     </div>
                                 </div>
                                 @error('avatar')

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 if (!function_exists('user_avatar')) {
     /**
@@ -37,6 +38,10 @@ if (!function_exists('user_avatar')) {
                 if (file_exists($filePath)) {
                     return asset('storage/' . $user->avatar_url);
                 }
+                // Log for debugging in production
+                if (config('app.debug')) {
+                    Log::warning("Avatar file not found: {$filePath}");
+                }
             } else {
                 // Cek langsung di root storage/app/public/
                 $filePathRoot = storage_path('app/public/' . $user->avatar_url);
@@ -48,6 +53,11 @@ if (!function_exists('user_avatar')) {
                 $filePathAvatars = storage_path('app/public/avatars/' . $user->avatar_url);
                 if (file_exists($filePathAvatars)) {
                     return asset('storage/avatars/' . $user->avatar_url);
+                }
+                
+                // Log both attempts for debugging
+                if (config('app.debug')) {
+                    Log::warning("Avatar file not found in either location: {$filePathRoot} or {$filePathAvatars}");
                 }
             }
         }

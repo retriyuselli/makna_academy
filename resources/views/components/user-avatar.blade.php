@@ -5,7 +5,8 @@
         alt="{{ $userName() }}"
         class="rounded-full object-cover border border-gray-200 shadow-sm"
         style="width: {{ $size }}px; height: {{ $size }}px; min-width: {{ $size }}px;"
-        onerror="this.src='{{ default_avatar($size, $userName()) }}'"
+        onerror="this.src='{{ default_avatar($size, $userName()) }}'; console.log('Avatar failed to load:', this.getAttribute('data-original-src'));"
+        data-original-src="{{ $avatarUrl() }}"
         loading="lazy"
     >
     
