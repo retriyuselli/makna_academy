@@ -8,6 +8,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\InvoiceFrontController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\AvatarTestController;
+use App\Http\Controllers\MateriController;
 use Illuminate\Support\Facades\Route;
 
 // Home
@@ -69,6 +70,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/{certificate}/preview', [CertificateController::class, 'previewTemplate'])->name('preview');
         Route::get('/{certificate}/download', [CertificateController::class, 'download'])->name('download');
         Route::get('/template/{certificate}', [CertificateController::class, 'previewTemplate'])->name('template.preview');
+    });
+    
+    // Materi Belajar routes
+    Route::prefix('materi')->name('materi.')->group(function () {
+        Route::get('/', [MateriController::class, 'index'])->name('index');
+        Route::get('/{materi}/download', [MateriController::class, 'download'])->name('download');
     });
     
     // Public certificate verification

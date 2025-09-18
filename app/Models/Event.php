@@ -294,6 +294,14 @@ class Event extends Model
     }
 
     /**
+     * Get event materials
+     */
+    public function materials(): HasMany
+    {
+        return $this->hasMany(Materi::class);
+    }
+
+    /**
      * Get the actual number of participants
      */
     public function getActualParticipantsAttribute(): int

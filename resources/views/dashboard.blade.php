@@ -452,6 +452,11 @@
                                 <i class="fas fa-certificate text-lg"></i>
                                 <span>Sertifikat Saya ({{ $certificateCount }})</span>
                             </a>
+                            <a href="{{ route('materi.index') }}"
+                                class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600 transition duration-300">
+                                <i class="fas fa-book text-lg"></i>
+                                <span>Materi Belajar</span>
+                            </a>
                         </div>
                     </div>
                 </div>

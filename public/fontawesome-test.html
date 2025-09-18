@@ -1,101 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FontAwesome Test - Makna Academy</title>
-    
-    <!-- Multiple FontAwesome CDN Sources -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    
-    <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            padding: 20px; 
-            line-height: 1.6; 
-        }
-        .icon-test { 
-            margin: 10px 0; 
-            padding: 10px; 
-            border: 1px solid #ddd; 
-            background: #f9f9f9; 
-        }
-        .icon-large { 
-            font-size: 2em; 
-            margin-right: 10px; 
-        }
-    </style>
-</head>
-<body>
-    <h1>🧪 FontAwesome Icon Test</h1>
-    <p>Testing FontAwesome icons used in Makna Academy login page:</p>
-    
-    <div class="icon-test">
-        <strong>Sign In Icon:</strong>
-        <i class="fas fa-sign-in-alt icon-large text-blue-600"></i>
-        <code>&lt;i class="fas fa-sign-in-alt"&gt;&lt;/i&gt;</code>
-    </div>
-    
-    <div class="icon-test">
-        <strong>Email Icon:</strong>
-        <i class="fas fa-envelope icon-large"></i>
-        <code>&lt;i class="fas fa-envelope"&gt;&lt;/i&gt;</code>
-    </div>
-    
-    <div class="icon-test">
-        <strong>Lock Icon:</strong>
-        <i class="fas fa-lock icon-large"></i>
-        <code>&lt;i class="fas fa-lock"&gt;&lt;/i&gt;</code>
-    </div>
-    
-    <div class="icon-test">
-        <strong>User Plus Icon:</strong>
-        <i class="fas fa-user-plus icon-large"></i>
-        <code>&lt;i class="fas fa-user-plus"&gt;&lt;/i&gt;</code>
-    </div>
-    
-    <div class="icon-test">
-        <strong>Graduation Cap Icon:</strong>
-        <i class="fas fa-graduation-cap icon-large"></i>
-        <code>&lt;i class="fas fa-graduation-cap"&gt;&lt;/i&gt;</code>
-    </div>
-    
-    <hr>
-    
-    <h2>📊 Troubleshooting Info</h2>
-    <div class="icon-test">
-        <strong>CDN Status:</strong>
-        <script>
-            // Test FontAwesome CDN loading
-            const testIcon = document.createElement('i');
-            testIcon.className = 'fas fa-check';
-            document.body.appendChild(testIcon);
-            
-            const iconStyle = window.getComputedStyle(testIcon);
-            if (iconStyle.fontFamily.includes('Font Awesome')) {
-                document.write('<span style="color: green;">✅ FontAwesome CDN loaded successfully</span>');
-            } else {
-                document.write('<span style="color: red;">❌ FontAwesome CDN failed to load</span>');
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FontAwesome Test - Makna Academy</title>
+
+        <!-- Multiple FontAwesome CDN Sources -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link
+            rel="stylesheet"
+            href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+            integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+            crossorigin="anonymous"
+        />
+
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                padding: 20px;
+                line-height: 1.6;
             }
-            
-            document.body.removeChild(testIcon);
-        </script>
-    </div>
-    
-    <div class="icon-test">
-        <strong>Browser:</strong> <script>document.write(navigator.userAgent)</script>
-    </div>
-    
-    <div class="icon-test">
-        <strong>Test Time:</strong> <script>document.write(new Date().toLocaleString())</script>
-    </div>
-    
-    <hr>
-    
-    <p>
-        <a href="/login">← Back to Login Page</a> | 
-        <a href="/">← Back to Homepage</a>
-    </p>
-</body>
+            .icon-test {
+                margin: 10px 0;
+                padding: 10px;
+                border: 1px solid #ddd;
+                background: #f9f9f9;
+            }
+            .icon-large {
+                font-size: 2em;
+                margin-right: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>🧪 FontAwesome Icon Test</h1>
+        <p>Testing FontAwesome icons used in Makna Academy login page:</p>
+
+        <div class="icon-test">
+            <strong>Sign In Icon:</strong>
+            <i class="fas fa-sign-in-alt icon-large text-blue-600"></i>
+            <code>&lt;i class="fas fa-sign-in-alt"&gt;&lt;/i&gt;</code>
+        </div>
+
+        <div class="icon-test">
+            <strong>Email Icon:</strong>
+            <i class="fas fa-envelope icon-large"></i>
+            <code>&lt;i class="fas fa-envelope"&gt;&lt;/i&gt;</code>
+        </div>
+
+        <div class="icon-test">
+            <strong>Lock Icon:</strong>
+            <i class="fas fa-lock icon-large"></i>
+            <code>&lt;i class="fas fa-lock"&gt;&lt;/i&gt;</code>
+        </div>
+
+        <div class="icon-test">
+            <strong>User Plus Icon:</strong>
+            <i class="fas fa-user-plus icon-large"></i>
+            <code>&lt;i class="fas fa-user-plus"&gt;&lt;/i&gt;</code>
+        </div>
+
+        <div class="icon-test">
+            <strong>Graduation Cap Icon:</strong>
+            <i class="fas fa-graduation-cap icon-large"></i>
+            <code>&lt;i class="fas fa-graduation-cap"&gt;&lt;/i&gt;</code>
+        </div>
+
+        <hr />
+
+        <h2>📊 Troubleshooting Info</h2>
+        <div class="icon-test">
+            <strong>CDN Status:</strong>
+            <script>
+                // Test FontAwesome CDN loading
+                const testIcon = document.createElement("i");
+                testIcon.className = "fas fa-check";
+                document.body.appendChild(testIcon);
+
+                const iconStyle = window.getComputedStyle(testIcon);
+                if (iconStyle.fontFamily.includes("Font Awesome")) {
+                    document.write(
+                        '<span style="color: green;">✅ FontAwesome CDN loaded successfully</span>'
+                    );
+                } else {
+                    document.write(
+                        '<span style="color: red;">❌ FontAwesome CDN failed to load</span>'
+                    );
+                }
+
+                document.body.removeChild(testIcon);
+            </script>
+        </div>
+
+        <div class="icon-test">
+            <strong>Browser:</strong>
+            <script>
+                document.write(navigator.userAgent);
+            </script>
+        </div>
+
+        <div class="icon-test">
+            <strong>Test Time:</strong>
+            <script>
+                document.write(new Date().toLocaleString());
+            </script>
+        </div>
+
+        <hr />
+
+        <p>
+            <a href="/login">← Back to Login Page</a> |
+            <a href="/">← Back to Homepage</a>
+        </p>
+    </body>
 </html>
