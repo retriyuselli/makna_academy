@@ -10,6 +10,11 @@ class EnsureUserIsAdminOrSuperAdmin
 {
     public function handle(Request $request, Closure $next): Response
     {
+        // Skip middleware for logout requests
+        if ($request->is('admin/logout') || $request->routeIs('filament.admin.auth.logout')) {
+            return $next($request);
+        }
+        
         $user = $request->user();
         if (!$user || !in_array($user->role, ['admin', 'super_admin'])) {
             abort(403, 'Unauthorized.');

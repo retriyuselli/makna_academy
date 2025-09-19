@@ -10,6 +10,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Mail\Events\MessageSent;
 use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Auth\Events\Logout;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,7 +19,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Override Filament's default logout response
+        $this->app->bind(
+            \Filament\Http\Responses\Auth\Contracts\LogoutResponse::class,
+            \App\Http\Responses\Auth\LogoutResponse::class
+        );
     }
 
     /**
@@ -34,5 +39,6 @@ class AppServiceProvider extends ServiceProvider
         // Register email event listeners
         Event::listen(MessageSending::class, \App\Listeners\LogSendingEmail::class);
         Event::listen(MessageSent::class, \App\Listeners\LogSentEmail::class);
+        Event::listen(Logout::class, \App\Listeners\FilamentLogoutListener::class);
     }
 }

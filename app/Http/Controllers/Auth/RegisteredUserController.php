@@ -43,7 +43,15 @@ class RegisteredUserController extends Controller
                 'unique:'.User::class,
                 new \App\Rules\ValidEmailDomain()
             ],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => [
+                'required', 
+                'confirmed', 
+                'min:8',
+                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@#$%^&*]).*$/',
+                Rules\Password::defaults()
+            ],
+        ], [
+            'password.regex' => 'Password harus mengandung minimal 8 karakter dengan kombinasi huruf, angka, dan simbol (!@#$%^&*)',
         ]);
 
         // Create user with all required fields using fillable first

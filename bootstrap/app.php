@@ -11,9 +11,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Global middleware untuk security headers (sudah diperbaiki)
+        $middleware->append(\App\Http\Middleware\SecurityHeaders::class);
+        
+        // Middleware aliases
         $middleware->alias([
             'smart.verified' => \App\Http\Middleware\SmartEmailVerification::class,
             'smart.admin.verified' => \App\Http\Middleware\SmartAdminVerification::class,
+            'security.headers' => \App\Http\Middleware\SecurityHeaders::class,
+            'log.login' => \App\Http\Middleware\LogLoginAttempts::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

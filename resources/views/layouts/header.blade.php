@@ -65,6 +65,15 @@
                                         class="fas fa-tachometer-alt mr-3 {{ request()->routeIs('dashboard') ? 'text-indigo-600' : 'text-gray-400' }}"></i>
                                     Dashboard
                                 </a>
+                                <!-- Admin Access - hanya untuk admin/super_admin -->
+                                @if(Auth::user()->role === 'admin' || Auth::user()->role === 'super_admin')
+                                <a href="{{ route('filament.admin.pages.dashboard') }}"
+                                    class="flex items-center px-4 py-2 text-sm {{ request()->is('admin*') ? 'text-indigo-600 bg-indigo-50' : 'text-gray-700 hover:bg-indigo-50 hover:text-indigo-600' }} transition duration-200">
+                                    <i
+                                        class="fas fa-shield-alt mr-3 {{ request()->is('admin*') ? 'text-indigo-600' : 'text-gray-400' }}"></i>
+                                    Masuk Admin
+                                </a>
+                                @endif
 
                                 <!-- Logout -->
                                 <form method="POST" action="{{ route('logout') }}" class="block">
@@ -139,6 +148,14 @@
                             class="block px-4 py-2 {{ request()->routeIs('dashboard') ? 'text-indigo-600 bg-indigo-50 border-r-4 border-indigo-600' : 'text-gray-700 hover:bg-indigo-50 hover:text-indigo-600' }} transition duration-200">
                             <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
                         </a>
+
+                        <!-- Admin Access Mobile - hanya untuk admin/super_admin -->
+                        @if(Auth::user()->role === 'admin' || Auth::user()->role === 'super_admin')
+                        <a href="{{ route('filament.admin.pages.dashboard') }}"
+                            class="block px-4 py-2 {{ request()->is('admin*') ? 'text-indigo-600 bg-indigo-50 border-r-4 border-indigo-600' : 'text-gray-700 hover:bg-indigo-50 hover:text-indigo-600' }} transition duration-200">
+                            <i class="fas fa-shield-alt mr-3"></i>Masuk Admin
+                        </a>
+                        @endif
 
                         <form method="POST" action="{{ route('logout') }}" class="block">
                             @csrf

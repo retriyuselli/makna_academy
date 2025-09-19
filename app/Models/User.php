@@ -24,12 +24,13 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
     protected $fillable = [
         'name',
         'email',
+        'password',
         'google_id',
         'avatar_url',
         'phone',
         'date_of_birth',
         'gender',
-        // Note: 'password' and 'role' removed for security - use dedicated methods
+        'role',
     ];
 
     /**
@@ -38,8 +39,6 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
      * @var list<string>
      */
     protected $guarded = [
-        'password',
-        'role',
         'remember_token',
         'email_verified_at',
     ];
@@ -77,6 +76,12 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
 
         // Sanitize input before saving
         static::saving(function ($user) {
+            // Prevent password from being null during updates
+            if ($user->exists && empty($user->password)) {
+                // If it's an update and password is empty, don't update password
+                unset($user->password);
+            }
+            
             // Sanitize name
             if ($user->name) {
                 $user->name = strip_tags(trim($user->name));

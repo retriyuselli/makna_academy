@@ -98,7 +98,7 @@
             </li>
             <li class="flex items-start">
                 <i class="fas fa-arrow-right text-blue-500 mr-2 mt-0.5 text-xs"></i>
-                Pastikan email <strong>{{ auth()->user()->email }}</strong> benar
+                Pastikan email <strong> {{ auth()->user()->email }} </strong> benar
             </li>
             <li class="flex items-start">
                 <i class="fas fa-arrow-right text-blue-500 mr-2 mt-0.5 text-xs"></i>

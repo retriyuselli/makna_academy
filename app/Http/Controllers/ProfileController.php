@@ -31,8 +31,11 @@ class ProfileController extends Controller
         $user = $request->user();
         $data = $request->validated();
 
-        // Ensure password is never updated through profile update
-        unset($data['password'], $data['password_confirmation'], $data['current_password']);
+        // Strictly exclude password-related fields from profile update
+        $excludedFields = ['password', 'password_confirmation', 'current_password'];
+        foreach ($excludedFields as $field) {
+            unset($data[$field]);
+        }
 
         // Debug logging for avatar upload
         if (config('app.debug')) {
@@ -90,17 +93,21 @@ class ProfileController extends Controller
             unset($data['avatar']);
         }
 
-        $user->fill($data);
-
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
+        // Use selective update to avoid password field issues
+        $updateData = collect($data)->except(['password', 'password_confirmation', 'current_password'])->toArray();
+        
+        // Handle email verification reset
+        if (isset($updateData['email']) && $updateData['email'] !== $user->email) {
+            $updateData['email_verified_at'] = null;
         }
 
-        $user->save();
+        // Update only the fields we want to update
+        $user->update($updateData);
 
         if (config('app.debug')) {
             Log::info('Profile updated successfully:', [
                 'user_id' => $user->id,
+                'updated_fields' => array_keys($updateData),
                 'new_avatar_url' => $user->avatar_url
             ]);
         }

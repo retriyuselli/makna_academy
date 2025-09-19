@@ -4,6 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        
+        <!-- Security Meta Tags -->
+        <meta http-equiv="X-Content-Type-Options" content="nosniff">
+        <meta http-equiv="X-Frame-Options" content="DENY">
+        <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+        <meta name="referrer" content="strict-origin-when-cross-origin">
 
         <title>{{ config('app.name', 'Makna Academy') }} - Authentication</title>
 
@@ -93,7 +99,27 @@
                 transform: translateY(-2px);
                 box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             }
+            
+            /* Password toggle button styling */
+            .password-toggle {
+                transition: all 0.2s ease;
+            }
+            
+            .password-toggle:hover {
+                color: #4f46e5 !important;
+                transform: scale(1.1);
+            }
+            
+            /* Input focus styling */
+            input:focus {
+                outline: none;
+                border-color: #4f46e5;
+                box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            }
         </style>
+        
+        <!-- Alpine.js for interactive components -->
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="auth-container flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
