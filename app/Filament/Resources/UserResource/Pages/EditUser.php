@@ -16,4 +16,17 @@ class EditUser extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function afterSave(): void
+    {
+        // Sync legacy role dengan Shield roles
+        $record = $this->getRecord();
+        
+        if ($record->role) {
+            // Remove all existing roles first
+            $record->syncRoles([]);
+            // Assign new Shield role berdasarkan legacy role
+            $record->assignRole($record->role);
+        }
+    }
 }

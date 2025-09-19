@@ -194,21 +194,18 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
             return false;
         }
 
-        // Check if user account is active (you may add an 'active' field later)
-        // if (isset($this->active) && !$this->active) {
-        //     return false;
-        // }
-
-        // Traditional role check (primary)
-        $hasTraditionalAccess = $this->isAdmin() || $this->isSuperAdmin();
-        
-        // Shield permission check (secondary)
-        $hasShieldAccess = false;
+        // Shield permission check (primary) - Modern approach
         if (method_exists($this, 'hasRole')) {
             $hasShieldAccess = $this->hasRole(['admin', 'super_admin', 'panel_user']);
+            if ($hasShieldAccess) {
+                return true;
+            }
         }
+
+        // Traditional role check (fallback) - Legacy support
+        $hasTraditionalAccess = $this->isAdmin() || $this->isSuperAdmin();
         
-        return $hasTraditionalAccess || $hasShieldAccess;
+        return $hasTraditionalAccess;
     }
 
     /**

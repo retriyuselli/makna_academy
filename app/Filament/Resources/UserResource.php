@@ -88,14 +88,22 @@ class UserResource extends Resource
                             ->dehydrateStateUsing(fn($state) => $state ? \Illuminate\Support\Facades\Hash::make($state) : null)
                             ->label('Password')
                             ->helperText($form->getOperation() === 'edit' ? 'Kosongkan jika tidak ingin mengubah password' : null),
+                        Forms\Components\Select::make('roles')
+                            ->relationship('roles', 'name')
+                            ->multiple()
+                            ->preload()
+                            ->searchable()
+                            ->label('Roles')
+                            ->helperText('Pilih satu atau lebih role untuk pengguna ini'),
                         Forms\Components\Select::make('role')
                             ->options([
                                 'super_admin' => 'Super Admin',
-                                'admin' => 'Admin',
+                                'admin' => 'Admin', 
                                 'customer' => 'Customer',
                             ])
                             ->required()
-                            ->label('Role Pengguna'),
+                            ->label('Role Legacy')
+                            ->helperText('Role legacy untuk backward compatibility'),
                     ])->columns(2),
             ]);
     }
@@ -149,6 +157,11 @@ class UserResource extends Resource
                         'female' => 'pink',
                         default => 'gray'
                     }),
+                Tables\Columns\TextColumn::make('roles.name')
+                    ->badge()
+                    ->separator(',')
+                    ->color('primary')
+                    ->label('Shield Roles'),
                 Tables\Columns\TextColumn::make('role')
                     ->badge()
                     ->color(fn($state) => match($state) {
@@ -163,7 +176,7 @@ class UserResource extends Resource
                         'customer' => 'Customer',
                         default => $state
                     })
-                    ->label('Role'),
+                    ->label('Role Legacy'),
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->label('Verifikasi Email')
                     ->badge()
@@ -181,8 +194,13 @@ class UserResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                Tables\Filters\SelectFilter::make('roles')
+                    ->relationship('roles', 'name')
+                    ->label('Shield Roles')
+                    ->multiple()
+                    ->preload(),
                 Tables\Filters\SelectFilter::make('role')
-                    ->label('Role')
+                    ->label('Role Legacy')
                     ->options([
                         'super_admin' => 'Super Admin',
                         'admin' => 'Admin',
