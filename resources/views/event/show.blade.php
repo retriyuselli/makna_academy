@@ -35,7 +35,7 @@
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-6">
                     @if($event->image)
                         <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}" 
-                             class="w-full h-64 object-cover">
+                             class="w-full h-auto object-cover">
                     @else
                         <div class="w-full h-64 bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
                             <i class="fas fa-calendar-alt text-6xl text-white opacity-50"></i>

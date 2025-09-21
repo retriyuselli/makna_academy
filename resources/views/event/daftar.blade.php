@@ -8,19 +8,23 @@
             border-color: #3B82F6;
             background-color: #EFF6FF;
         }
+
         .package-card.selected.gold {
             border-color: #F59E0B;
             background-color: #FFFBEB;
         }
+
         .package-card.selected.platinum {
             border-color: #3B82F6;
             background-color: #EFF6FF;
         }
+
         .radio-circle.selected {
             border-color: #3B82F6;
             background-color: #3B82F6;
             position: relative;
         }
+
         .radio-circle.selected::after {
             content: '';
             position: absolute;
@@ -49,11 +53,11 @@
                 packageRadios.forEach((radio, index) => {
                     const card = packageCards[index];
                     const circle = radioCircles[index];
-                    
+
                     if (radio.checked) {
                         card.classList.add('selected');
                         circle.classList.add('selected');
-                        
+
                         if (radio.value === 'gold') {
                             card.classList.add('gold');
                         } else if (radio.value === 'platinum') {
@@ -173,13 +177,13 @@
     <!-- Registration Form -->
     <section class="py-12 bg-gray-50">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 <!-- Event Info Sidebar -->
                 <div class="lg:col-span-1">
                     <div class="bg-white rounded-lg shadow-lg p-6 sticky top-6">
                         <div class="mb-4">
                             <img src="{{ $event->image ? asset('storage/' . $event->image) : 'https://via.placeholder.com/400x250/4F46E5/FFFFFF?text=' . urlencode($event->title) }}"
-                                alt="{{ $event->title }}" class="w-full h-48 object-cover rounded-lg">
+                                alt="{{ $event->title }}" class="w-full h-auto object-cover rounded-lg">
                         </div>
 
                         <h3 class="text-xl font-bold text-gray-900 mb-4">{{ $event->title }}</h3>
@@ -250,7 +254,7 @@
                                 </div>
                                 <h3 class="text-2xl font-bold text-gray-900 mb-2">Anda Sudah Terdaftar</h3>
                                 <p class="text-gray-600 mb-6">Anda sudah terdaftar untuk event ini.</p>
-                                
+
                                 @if (session('success'))
                                     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
                                         {{ session('success') }}
@@ -408,13 +412,18 @@
                                                 <input type="radio" name="package_type" value="gold"
                                                     {{ old('package_type', 'gold') === 'gold' ? 'checked' : '' }}
                                                     class="sr-only package-radio" required>
-                                                <div class="package-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-yellow-400 transition-colors">
+                                                <div
+                                                    class="package-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-yellow-400 transition-colors">
                                                     <div class="flex items-center justify-between">
                                                         <div class="flex items-center">
-                                                            <div class="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 radio-circle"></div>
+                                                            <div
+                                                                class="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 radio-circle">
+                                                            </div>
                                                             <div>
-                                                                <h4 class="text-lg font-semibold text-yellow-600">Gold Package</h4>
-                                                                <p class="text-gray-600">Paket standar dengan fasilitas lengkap</p>
+                                                                <h4 class="text-lg font-semibold text-yellow-600">Gold
+                                                                    Package</h4>
+                                                                <p class="text-gray-600">Paket standar dengan fasilitas
+                                                                    lengkap</p>
                                                             </div>
                                                         </div>
                                                         <div class="text-right">
@@ -430,13 +439,18 @@
                                                 <input type="radio" name="package_type" value="platinum"
                                                     {{ old('package_type') === 'platinum' ? 'checked' : '' }}
                                                     class="sr-only package-radio" required>
-                                                <div class="package-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-400 transition-colors">
+                                                <div
+                                                    class="package-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-400 transition-colors">
                                                     <div class="flex items-center justify-between">
                                                         <div class="flex items-center">
-                                                            <div class="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 radio-circle"></div>
+                                                            <div
+                                                                class="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 radio-circle">
+                                                            </div>
                                                             <div>
-                                                                <h4 class="text-lg font-semibold text-blue-600">Platinum Package</h4>
-                                                                <p class="text-gray-600">Paket premium dengan fasilitas eksklusif</p>
+                                                                <h4 class="text-lg font-semibold text-blue-600">Platinum
+                                                                    Package</h4>
+                                                                <p class="text-gray-600">Paket premium dengan fasilitas
+                                                                    eksklusif</p>
                                                             </div>
                                                         </div>
                                                         <div class="text-right">
@@ -505,7 +519,7 @@
                                         @if ($event->has_down_payment)
                                             <div class="mt-6 border-t border-gray-200 pt-6">
                                                 <h4 class="text-lg font-semibold text-gray-900 mb-4">Opsi Pembayaran</h4>
-                                                
+
                                                 <div class="space-y-3">
                                                     <label class="flex items-start cursor-pointer">
                                                         <input type="radio" name="payment_type" value="full_payment"
@@ -513,19 +527,23 @@
                                                             class="mt-1 mr-3 text-indigo-600" required>
                                                         <div class="flex-1">
                                                             <span class="text-gray-700 font-medium">Bayar Lunas</span>
-                                                            <p class="text-sm text-gray-500">Bayar full harga event sekaligus</p>
+                                                            <p class="text-sm text-gray-500">Bayar full harga event
+                                                                sekaligus</p>
                                                             <div class="mt-2 text-sm">
-                                                                @if($event->eventCategory && str_contains(strtolower($event->eventCategory->name), 'expo'))
+                                                                @if ($event->eventCategory && str_contains(strtolower($event->eventCategory->name), 'expo'))
                                                                     <div class="grid grid-cols-2 gap-2">
                                                                         <div class="bg-yellow-50 p-2 rounded">
-                                                                            <span class="text-yellow-700">Gold: Rp {{ number_format($event->price_gold, 0, ',', '.') }}</span>
+                                                                            <span class="text-yellow-700">Gold: Rp
+                                                                                {{ number_format($event->price_gold, 0, ',', '.') }}</span>
                                                                         </div>
                                                                         <div class="bg-blue-50 p-2 rounded">
-                                                                            <span class="text-blue-700">Platinum: Rp {{ number_format($event->price_platinum, 0, ',', '.') }}</span>
+                                                                            <span class="text-blue-700">Platinum: Rp
+                                                                                {{ number_format($event->price_platinum, 0, ',', '.') }}</span>
                                                                         </div>
                                                                     </div>
                                                                 @else
-                                                                    <span class="text-indigo-600 font-medium">Rp {{ number_format($event->price, 0, ',', '.') }}</span>
+                                                                    <span class="text-indigo-600 font-medium">Rp
+                                                                        {{ number_format($event->price, 0, ',', '.') }}</span>
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -536,26 +554,33 @@
                                                             {{ old('payment_type') == 'down_payment' ? 'checked' : '' }}
                                                             class="mt-1 mr-3 text-indigo-600">
                                                         <div class="flex-1">
-                                                            <span class="text-gray-700 font-medium">Bayar Down Payment (DP)</span>
+                                                            <span class="text-gray-700 font-medium">Bayar Down Payment
+                                                                (DP)</span>
                                                             <p class="text-sm text-gray-500">
-                                                                @if($event->down_payment_type === 'percentage')
-                                                                    Bayar {{ $event->down_payment_percentage }}% dari total harga, sisanya dapat dibayar kemudian
+                                                                @if ($event->down_payment_type === 'percentage')
+                                                                    Bayar {{ $event->down_payment_percentage }}% dari total
+                                                                    harga, sisanya dapat dibayar kemudian
                                                                 @else
-                                                                    Bayar DP Rp {{ number_format($event->down_payment_amount, 0, ',', '.') }}, sisanya dapat dibayar kemudian
+                                                                    Bayar DP Rp
+                                                                    {{ number_format($event->down_payment_amount, 0, ',', '.') }},
+                                                                    sisanya dapat dibayar kemudian
                                                                 @endif
                                                             </p>
                                                             <div class="mt-2 text-sm">
-                                                                @if($event->eventCategory && str_contains(strtolower($event->eventCategory->name), 'expo'))
+                                                                @if ($event->eventCategory && str_contains(strtolower($event->eventCategory->name), 'expo'))
                                                                     <div class="grid grid-cols-2 gap-2">
                                                                         <div class="bg-yellow-50 p-2 rounded">
-                                                                            <span class="text-yellow-700">Gold DP: Rp {{ number_format($event->getPackageDownPayment('gold'), 0, ',', '.') }}</span>
+                                                                            <span class="text-yellow-700">Gold DP: Rp
+                                                                                {{ number_format($event->getPackageDownPayment('gold'), 0, ',', '.') }}</span>
                                                                         </div>
                                                                         <div class="bg-blue-50 p-2 rounded">
-                                                                            <span class="text-blue-700">Platinum DP: Rp {{ number_format($event->getPackageDownPayment('platinum'), 0, ',', '.') }}</span>
+                                                                            <span class="text-blue-700">Platinum DP: Rp
+                                                                                {{ number_format($event->getPackageDownPayment('platinum'), 0, ',', '.') }}</span>
                                                                         </div>
                                                                     </div>
                                                                 @else
-                                                                    <span class="text-green-600 font-medium">DP: Rp {{ number_format($event->getPackageDownPayment('regular'), 0, ',', '.') }}</span>
+                                                                    <span class="text-green-600 font-medium">DP: Rp
+                                                                        {{ number_format($event->getPackageDownPayment('regular'), 0, ',', '.') }}</span>
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -614,7 +639,8 @@
                                             <span class="text-sm text-gray-700">
                                                 Saya menyetujui <a href="#" id="termsLink"
                                                     class="text-indigo-600 hover:underline">syarat dan ketentuan</a>
-                                                serta <a href="#" id="privacyLink" class="text-indigo-600 hover:underline">kebijakan
+                                                serta <a href="#" id="privacyLink"
+                                                    class="text-indigo-600 hover:underline">kebijakan
                                                     privasi</a> yang berlaku.
                                             </span>
                                         </label>
@@ -631,7 +657,7 @@
                                         </button>
 
                                         <a href="{{ route('events.index') }}"
-                                            class="flex-1 bg-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-400 transition duration-300 font-semibold text-center">
+                                            class="flex-1 bg-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-400 transition duration-300 font-semibold flex items-center justify-center">
                                             Batal
                                         </a>
                                     </div>
@@ -674,7 +700,8 @@
     <!-- Terms and Conditions Modal -->
     <div id="termsModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden"
         style="z-index: 50;">
-        <div class="relative top-10 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white max-h-[90vh] overflow-y-auto">
+        <div
+            class="relative top-10 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white max-h-[90vh] overflow-y-auto">
             <div class="mt-3">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl leading-6 font-bold text-gray-900">Syarat dan Ketentuan</h3>
@@ -685,8 +712,9 @@
                 <div class="max-h-96 overflow-y-auto px-2">
                     <div class="space-y-4 text-sm text-gray-700">
                         <h4 class="font-semibold text-lg text-gray-900">1. Ketentuan Umum</h4>
-                        <p>Dengan mendaftar dan mengikuti event Makna Academy, peserta dianggap telah membaca, memahami, dan menyetujui seluruh syarat dan ketentuan yang berlaku.</p>
-                        
+                        <p>Dengan mendaftar dan mengikuti event Makna Academy, peserta dianggap telah membaca, memahami, dan
+                            menyetujui seluruh syarat dan ketentuan yang berlaku.</p>
+
                         <h4 class="font-semibold text-lg text-gray-900">2. Pendaftaran</h4>
                         <ul class="list-disc list-inside space-y-1">
                             <li>Peserta wajib mengisi formulir pendaftaran dengan data yang benar dan lengkap</li>
@@ -707,14 +735,16 @@
                         <ul class="list-disc list-inside space-y-1">
                             <li>Peserta wajib hadir tepat waktu sesuai jadwal yang ditentukan</li>
                             <li>Peserta wajib mematuhi protokol kesehatan yang berlaku</li>
-                            <li>Penyelenggara berhak mengubah jadwal, lokasi, atau format event dengan pemberitahuan sebelumnya</li>
+                            <li>Penyelenggara berhak mengubah jadwal, lokasi, atau format event dengan pemberitahuan
+                                sebelumnya</li>
                             <li>Peserta dilarang melakukan tindakan yang mengganggu jalannya event</li>
                         </ul>
 
                         <h4 class="font-semibold text-lg text-gray-900">5. Sertifikat</h4>
                         <ul class="list-disc list-inside space-y-1">
                             <li>Sertifikat hanya diberikan kepada peserta yang mengikuti event hingga selesai</li>
-                            <li>Sertifikat akan dikirimkan dalam bentuk digital paling lambat 7 hari kerja setelah event</li>
+                            <li>Sertifikat akan dikirimkan dalam bentuk digital paling lambat 7 hari kerja setelah event
+                            </li>
                             <li>Sertifikat fisik dapat diminta dengan biaya tambahan</li>
                         </ul>
 
@@ -722,7 +752,8 @@
                         <ul class="list-disc list-inside space-y-1">
                             <li>Seluruh materi event adalah hak cipta Makna Academy</li>
                             <li>Peserta dilarang merekam, menyebarkan, atau menggunakan materi event tanpa izin</li>
-                            <li>Penyelenggara berhak melakukan dokumentasi dan menggunakan foto/video untuk keperluan promosi</li>
+                            <li>Penyelenggara berhak melakukan dokumentasi dan menggunakan foto/video untuk keperluan
+                                promosi</li>
                         </ul>
 
                         <h4 class="font-semibold text-lg text-gray-900">7. Tanggung Jawab</h4>
@@ -733,13 +764,17 @@
                         </ul>
 
                         <h4 class="font-semibold text-lg text-gray-900">8. Force Majeure</h4>
-                        <p>Penyelenggara tidak bertanggung jawab atas pembatalan atau penundaan event yang disebabkan oleh keadaan kahar (force majeure) seperti bencana alam, wabah penyakit, kebijakan pemerintah, atau kondisi darurat lainnya.</p>
+                        <p>Penyelenggara tidak bertanggung jawab atas pembatalan atau penundaan event yang disebabkan oleh
+                            keadaan kahar (force majeure) seperti bencana alam, wabah penyakit, kebijakan pemerintah, atau
+                            kondisi darurat lainnya.</p>
 
                         <h4 class="font-semibold text-lg text-gray-900">9. Perubahan Syarat dan Ketentuan</h4>
-                        <p>Makna Academy berhak mengubah syarat dan ketentuan ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Perubahan akan berlaku efektif sejak dipublikasikan.</p>
+                        <p>Makna Academy berhak mengubah syarat dan ketentuan ini sewaktu-waktu tanpa pemberitahuan
+                            sebelumnya. Perubahan akan berlaku efektif sejak dipublikasikan.</p>
 
                         <h4 class="font-semibold text-lg text-gray-900">10. Hukum yang Berlaku</h4>
-                        <p>Syarat dan ketentuan ini tunduk pada hukum Republik Indonesia. Segala perselisihan akan diselesaikan melalui musyawarah atau melalui pengadilan yang berwenang.</p>
+                        <p>Syarat dan ketentuan ini tunduk pada hukum Republik Indonesia. Segala perselisihan akan
+                            diselesaikan melalui musyawarah atau melalui pengadilan yang berwenang.</p>
                     </div>
                 </div>
                 <div class="flex justify-end mt-6 pt-4 border-t">
@@ -755,7 +790,8 @@
     <!-- Privacy Policy Modal -->
     <div id="privacyModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden"
         style="z-index: 50;">
-        <div class="relative top-10 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white max-h-[90vh] overflow-y-auto">
+        <div
+            class="relative top-10 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white max-h-[90vh] overflow-y-auto">
             <div class="mt-3">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl leading-6 font-bold text-gray-900">Kebijakan Privasi</h3>
@@ -766,7 +802,8 @@
                 <div class="max-h-96 overflow-y-auto px-2">
                     <div class="space-y-4 text-sm text-gray-700">
                         <h4 class="font-semibold text-lg text-gray-900">1. Informasi yang Kami Kumpulkan</h4>
-                        <p>Kami mengumpulkan informasi pribadi yang Anda berikan saat mendaftar event, termasuk namun tidak terbatas pada:</p>
+                        <p>Kami mengumpulkan informasi pribadi yang Anda berikan saat mendaftar event, termasuk namun tidak
+                            terbatas pada:</p>
                         <ul class="list-disc list-inside space-y-1">
                             <li>Nama lengkap</li>
                             <li>Alamat email</li>
@@ -787,7 +824,8 @@
                         </ul>
 
                         <h4 class="font-semibold text-lg text-gray-900">3. Pembagian Informasi</h4>
-                        <p>Kami tidak akan menjual, menyewakan, atau membagikan informasi pribadi Anda kepada pihak ketiga tanpa persetujuan, kecuali:</p>
+                        <p>Kami tidak akan menjual, menyewakan, atau membagikan informasi pribadi Anda kepada pihak ketiga
+                            tanpa persetujuan, kecuali:</p>
                         <ul class="list-disc list-inside space-y-1">
                             <li>Untuk memenuhi kewajiban hukum</li>
                             <li>Untuk melindungi hak dan keamanan kami</li>
@@ -795,10 +833,12 @@
                         </ul>
 
                         <h4 class="font-semibold text-lg text-gray-900">4. Keamanan Data</h4>
-                        <p>Kami menerapkan langkah-langkah keamanan yang tepat untuk melindungi informasi pribadi Anda dari akses yang tidak sah, perubahan, pengungkapan, atau penghancuran.</p>
+                        <p>Kami menerapkan langkah-langkah keamanan yang tepat untuk melindungi informasi pribadi Anda dari
+                            akses yang tidak sah, perubahan, pengungkapan, atau penghancuran.</p>
 
                         <h4 class="font-semibold text-lg text-gray-900">5. Cookies</h4>
-                        <p>Website kami menggunakan cookies untuk meningkatkan pengalaman pengguna. Anda dapat mengatur browser untuk menolak cookies, namun beberapa fitur website mungkin tidak berfungsi optimal.</p>
+                        <p>Website kami menggunakan cookies untuk meningkatkan pengalaman pengguna. Anda dapat mengatur
+                            browser untuk menolak cookies, namun beberapa fitur website mungkin tidak berfungsi optimal.</p>
 
                         <h4 class="font-semibold text-lg text-gray-900">6. Hak Pengguna</h4>
                         <p>Anda memiliki hak untuk:</p>
@@ -810,10 +850,12 @@
                         </ul>
 
                         <h4 class="font-semibold text-lg text-gray-900">7. Penyimpanan Data</h4>
-                        <p>Data pribadi Anda akan disimpan selama diperlukan untuk tujuan yang dijelaskan dalam kebijakan ini, atau sesuai dengan ketentuan hukum yang berlaku.</p>
+                        <p>Data pribadi Anda akan disimpan selama diperlukan untuk tujuan yang dijelaskan dalam kebijakan
+                            ini, atau sesuai dengan ketentuan hukum yang berlaku.</p>
 
                         <h4 class="font-semibold text-lg text-gray-900">8. Perubahan Kebijakan</h4>
-                        <p>Kami dapat memperbarui kebijakan privasi ini dari waktu ke waktu. Perubahan akan diinformasikan melalui website atau email.</p>
+                        <p>Kami dapat memperbarui kebijakan privasi ini dari waktu ke waktu. Perubahan akan diinformasikan
+                            melalui website atau email.</p>
 
                         <h4 class="font-semibold text-lg text-gray-900">9. Kontak</h4>
                         <p>Jika Anda memiliki pertanyaan tentang kebijakan privasi ini, silakan hubungi kami di:</p>

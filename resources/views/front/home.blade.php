@@ -123,7 +123,7 @@
                         <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
                             <div class="relative">
                                 <img src="{{ $event->image ? asset('storage/' . $event->image) : 'https://via.placeholder.com/400x250/4F46E5/FFFFFF?text=' . urlencode($event->title) }}"
-                                    alt="{{ $event->title }}" class="w-full h-48 object-cover">
+                                    alt="{{ $event->title }}" class="w-full h-100 object-cover">
 
                                 @if ($event->is_featured)
                                     <div class="absolute top-4 left-4">

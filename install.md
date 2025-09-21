@@ -6,6 +6,20 @@
 cd /home/u380354370/domains/maknaacademy.com/public_html
 ```
 
+## GitHhub
+
+git add .
+git commit -m "Commit message"
+git push origin main
+
+## Git Server
+
+git pull
+
+## Composer
+
+composer install
+
 ## Migration Commands
 
 ```bash
