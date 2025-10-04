@@ -502,10 +502,9 @@ class EventRegistrationResource extends Resource
                             $record->payment_status === 'pending' && $record->bukti_pembayaran),
                     Tables\Actions\Action::make('download_ticket')
                         ->icon('heroicon-o-ticket')
-                        // ->url(fn (EventRegistration $record): string => route('ticket.download', $record))
+                        ->url(fn (EventRegistration $record): string => route('ticket.download', $record))
                         ->openUrlInNewTab()
-                        ->visible(fn (EventRegistration $record): bool => 
-                            $record->payment_status === 'fully_paid' || $record->payment_status === 'free'),
+                        ->visible(false), // Dinonaktifkan sementara
                     Tables\Actions\Action::make('issue_certificate')
                         ->icon('heroicon-o-document-check')
                         ->color('success')

@@ -9,6 +9,7 @@ use App\Http\Controllers\InvoiceFrontController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\AvatarTestController;
 use App\Http\Controllers\MateriController;
+use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
 // Home
@@ -76,6 +77,11 @@ Route::middleware('auth')->group(function () {
     Route::prefix('materi')->name('materi.')->group(function () {
         Route::get('/', [MateriController::class, 'index'])->name('index');
         Route::get('/{materi}/download', [MateriController::class, 'download'])->name('download');
+    });
+    
+    // Ticket routes
+    Route::prefix('ticket')->name('ticket.')->group(function () {
+        Route::get('/{registration}/download', [TicketController::class, 'download'])->name('download');
     });
     
     // Public certificate verification

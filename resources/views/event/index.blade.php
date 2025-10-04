@@ -115,9 +115,9 @@
                         <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
                             @if ($event->image)
                                 <img src="{{ Storage::url($event->image) }}" alt="{{ $event->title }}"
-                                    class="w-full h-40 object-cover">
+                                    class="w-full h-80 object-cover">
                             @else
-                                <div class="w-full h-40 bg-gray-200 flex items-center justify-center">
+                                <div class="w-full h-80 bg-gray-200 flex items-center justify-center">
                                     <i class="fas fa-calendar-alt text-3xl text-gray-400"></i>
                                 </div>
                             @endif

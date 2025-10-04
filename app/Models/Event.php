@@ -17,6 +17,7 @@ class Event extends Model
     
     protected $fillable = [
         'event_category_id',
+        'company_id',
         'title',
         'slug',
         'description',
@@ -104,6 +105,139 @@ class Event extends Model
         return $this->belongsTo(\App\Models\EventCategory::class, 'event_category_id');
     }
 
+    /**
+     * Relasi ke company sebagai organizer
+     */
+    public function company()
+    {
+        return $this->belongsTo(\App\Models\Company::class, 'company_id');
+    }
+
+    /**
+     * Accessor untuk mendapatkan nama organizer yang efektif
+     * Prioritas: Company name > Manual organizer_name
+     */
+    public function getOrganizerNameAttribute($value)
+    {
+        return $this->company ? $this->company->name : $value;
+    }
+
+    /**
+     * Accessor untuk mendapatkan kontak organizer yang efektif
+     */
+    public function getOrganizerContactAttribute()
+    {
+        if ($this->company) {
+            return [
+                'name' => $this->company->name,
+                'email' => $this->company->email ?: $this->contact_email,
+                'phone' => $this->company->phone ?: $this->contact_phone,
+                'address' => $this->company->address
+            ];
+        }
+        
+        return [
+            'name' => $this->attributes['organizer_name'] ?? null,
+            'email' => $this->contact_email,
+            'phone' => $this->contact_phone,
+            'address' => null
+        ];
+    }
+
+    /**
+     * Get formatted benefits with proper numbering and HTML sanitization
+     */
+    public function getFormattedBenefits()
+    {
+        if (!$this->benefits) {
+            return null;
+        }
+
+        // If it's already an array, use it directly
+        if (is_array($this->benefits)) {
+            return $this->benefits;
+        }
+
+        // If it's HTML string, sanitize and extract list items
+        $sanitizedHtml = str($this->benefits)->sanitizeHtml();
+        
+        // Remove HTML tags and extract meaningful content
+        $cleanText = strip_tags($sanitizedHtml, '<li><ol><ul><p><br>');
+        
+        // Extract list items from HTML
+        if (preg_match_all('/<li[^>]*>(.*?)<\/li>/s', $cleanText, $matches)) {
+            $benefits = [];
+            foreach ($matches[1] as $match) {
+                $cleanItem = trim(strip_tags($match));
+                if (!empty($cleanItem)) {
+                    $benefits[] = $cleanItem;
+                }
+            }
+            return $benefits;
+        }
+        
+        // If no list items found, split by common delimiters
+        $cleanText = strip_tags($cleanText);
+        $lines = preg_split('/[.\n\r]+/', $cleanText);
+        $benefits = [];
+        
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if (!empty($line) && strlen($line) > 3) { // Filter out very short fragments
+                $benefits[] = $line;
+            }
+        }
+        
+        return array_filter($benefits);
+    }
+
+    /**
+     * Get formatted requirements with proper numbering and HTML sanitization
+     */
+    public function getFormattedRequirements()
+    {
+        if (!$this->requirements) {
+            return null;
+        }
+
+        // If it's already an array, use it directly
+        if (is_array($this->requirements)) {
+            return $this->requirements;
+        }
+
+        // If it's HTML string, sanitize and extract list items
+        $sanitizedHtml = str($this->requirements)->sanitizeHtml();
+        
+        // Remove HTML tags and extract meaningful content
+        $cleanText = strip_tags($sanitizedHtml, '<li><ol><ul><p><br>');
+        
+        // Extract list items from HTML
+        if (preg_match_all('/<li[^>]*>(.*?)<\/li>/s', $cleanText, $matches)) {
+            $requirements = [];
+            foreach ($matches[1] as $match) {
+                $cleanItem = trim(strip_tags($match));
+                if (!empty($cleanItem)) {
+                    $requirements[] = $cleanItem;
+                }
+            }
+            return $requirements;
+        }
+        
+        // If no list items found, split by common delimiters
+        $cleanText = strip_tags($cleanText);
+        $lines = preg_split('/[.\n\r]+/', $cleanText);
+        $requirements = [];
+        
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if (!empty($line) && strlen($line) > 3) { // Filter out very short fragments
+                $requirements[] = $line;
+            }
+        }
+        
+        return array_filter($requirements);
+    }
+
     // Automatically generate slug when creating
     protected static function boot()
     {
@@ -120,6 +254,30 @@ class Event extends Model
                 $event->slug = Str::slug($event->title);
             }
         });
+    }
+
+    /**
+     * Get the route key for the model (using slug instead of id)
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    /**
+     * Resolve route binding by slug, fallback to id for backward compatibility
+     */
+    public function resolveRouteBinding($value, $field = null)
+    {
+        // Try to find by slug first
+        $event = $this->where('slug', $value)->first();
+        
+        // If not found by slug and value is numeric, try to find by id (backward compatibility)
+        if (!$event && is_numeric($value)) {
+            $event = $this->where('id', $value)->first();
+        }
+        
+        return $event;
     }
 
     /**

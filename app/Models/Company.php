@@ -34,4 +34,12 @@ class Company extends Model
         'established_date' => 'date',
         'is_active' => 'boolean'
     ];
+
+    /**
+     * Relasi ke events yang diorganisir oleh company ini
+     */
+    public function events()
+    {
+        return $this->hasMany(\App\Models\Event::class);
+    }
 }

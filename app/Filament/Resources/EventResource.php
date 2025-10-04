@@ -61,7 +61,6 @@ class EventResource extends Resource
         return array_combine($cities[$province], $cities[$province]);
     }
     protected static ?string $model = Event::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-calendar';
     protected static ?string $navigationGroup = 'Manajemen Event';
     protected static ?int $navigationSort = 2;
@@ -341,10 +340,59 @@ class EventResource extends Resource
                             ->regex('/^08[0-9]{9,11}$/')
                             ->label('No. Telepon')
                             ->helperText('Format: 08xxxxxxxxxx'),
-                        Forms\Components\TextInput::make('organizer_name')
+                        Forms\Components\Select::make('company_id')
+                            ->relationship('company', 'name')
                             ->required()
+                            ->searchable()
+                            ->preload()
+                            ->label('Perusahaan Penyelenggara')
+                            ->createOptionForm([
+                                Forms\Components\TextInput::make('name')
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->label('Nama Perusahaan'),
+                                Forms\Components\TextInput::make('legal_name')
+                                    ->maxLength(255)
+                                    ->label('Nama Legal'),
+                                Forms\Components\TextInput::make('email')
+                                    ->email()
+                                    ->maxLength(255)
+                                    ->label('Email'),
+                                Forms\Components\TextInput::make('phone')
+                                    ->tel()
+                                    ->maxLength(255)
+                                    ->label('No. Telepon'),
+                                Forms\Components\TextInput::make('website')
+                                    ->url()
+                                    ->maxLength(255)
+                                    ->label('Website'),
+                                Forms\Components\Textarea::make('address')
+                                    ->maxLength(500)
+                                    ->label('Alamat'),
+                                Forms\Components\Toggle::make('is_active')
+                                    ->default(true)
+                                    ->label('Status Aktif'),
+                            ])
+                            ->reactive()
+                            ->afterStateUpdated(function (Forms\Set $set, $state) {
+                                if ($state) {
+                                    $company = \App\Models\Company::find($state);
+                                    if ($company) {
+                                        $set('organizer_name', $company->name);
+                                        if ($company->email) {
+                                            $set('contact_email', $company->email);
+                                        }
+                                        if ($company->phone) {
+                                            $set('contact_phone', $company->phone);
+                                        }
+                                    }
+                                }
+                            }),
+                        Forms\Components\TextInput::make('organizer_name')
                             ->maxLength(255)
-                            ->label('Nama Penyelenggara'),
+                            ->label('Nama Penyelenggara (Manual)')
+                            ->helperText('Akan terisi otomatis dari perusahaan yang dipilih, atau isi manual jika diperlukan')
+                            ->disabled(fn (Forms\Get $get) => !empty($get('company_id'))),
                         Forms\Components\TextInput::make('pembicara')
                             ->required()
                             ->maxLength(255)
@@ -359,11 +407,9 @@ class EventResource extends Resource
                 Forms\Components\Section::make('Detail Tambahan')
                     ->schema([
                         Forms\Components\RichEditor::make('requirements')
-                            ->label('Persyaratan')
-                            ->toolbarButtons(['bold', 'bulletList', 'italic']),
+                            ->label('Persyaratan'),
                         Forms\Components\RichEditor::make('benefits')
-                            ->label('Manfaat/Fasilitas')
-                            ->toolbarButtons(['bold', 'bulletList', 'italic']),
+                            ->label('Manfaat/Fasilitas'),
                         Forms\Components\Textarea::make('schedule_temp')
                             ->label('Jadwal/Rundown')
                             ->placeholder('Masukkan jadwal, satu per baris')
@@ -406,6 +452,14 @@ class EventResource extends Resource
                     ->label('Kategori')
                     ->sortable()
                     ->badge(),
+                Tables\Columns\TextColumn::make('company.name')
+                    ->label('Penyelenggara')
+                    ->searchable()
+                    ->sortable()
+                    ->badge()
+                    ->color('info')
+                    ->default('Manual')
+                    ->tooltip(fn (?Event $record): ?string => $record?->organizer_name),
                 Tables\Columns\TextColumn::make('city')
                     ->label('Kota')
                     ->searchable()
@@ -498,6 +552,11 @@ class EventResource extends Resource
                     ->searchable()
                     ->preload()
                     ->label('Kategori'),
+                Tables\Filters\SelectFilter::make('company_id')
+                    ->relationship('company', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->label('Perusahaan Penyelenggara'),
                 Tables\Filters\SelectFilter::make('province')
                     ->options([
                         'Aceh' => 'Aceh',

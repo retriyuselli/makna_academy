@@ -96,34 +96,54 @@
                     <h2 class="text-xl font-semibold text-gray-900 mb-4">Informasi Tambahan</h2>
                     
                     @if($event->requirements)
-                    <div class="mb-4">
-                        <h3 class="font-medium text-gray-900 mb-2">Persyaratan:</h3>
-                        @if(is_array($event->requirements))
-                            <ul class="text-gray-700 list-disc list-inside space-y-1">
-                                @foreach($event->requirements as $requirement)
-                                    <li>{{ $requirement }}</li>
+                    <div class="mb-6">
+                        <h3 class="font-semibold text-gray-900 mb-4 text-lg">Persyaratan:</h3>
+                        @php
+                            $formattedRequirements = $event->getFormattedRequirements();
+                        @endphp
+                        @if($formattedRequirements && count($formattedRequirements) > 0)
+                            <div class="space-y-3">
+                                @foreach($formattedRequirements as $index => $requirement)
+                                    <div class="flex items-start space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                                            {{ $index + 1 }}
+                                        </div>
+                                        <div class="flex-1 pt-1">
+                                            <p class="text-gray-700 leading-relaxed">{{ strip_tags($requirement) }}</p>
+                                        </div>
+                                    </div>
                                 @endforeach
-                            </ul>
+                            </div>
                         @else
                             <div class="text-gray-700 prose prose-sm max-w-none">
-                                {!! $event->requirements !!}
+                                {!! str($event->requirements)->sanitizeHtml() !!}
                             </div>
                         @endif
                     </div>
                     @endif
                     
                     @if($event->benefits)
-                    <div class="mb-4">
-                        <h3 class="font-medium text-gray-900 mb-2">Manfaat yang Didapat:</h3>
-                        @if(is_array($event->benefits))
-                            <ul class="text-gray-700 list-disc list-inside space-y-1">
-                                @foreach($event->benefits as $benefit)
-                                    <li>{{ $benefit }}</li>
+                    <div class="mb-6">
+                        <h3 class="font-semibold text-gray-900 mb-4 text-lg">Manfaat yang Didapat:</h3>
+                        @php
+                            $formattedBenefits = $event->getFormattedBenefits();
+                        @endphp
+                        @if($formattedBenefits && count($formattedBenefits) > 0)
+                            <div class="space-y-3">
+                                @foreach($formattedBenefits as $index => $benefit)
+                                    <div class="flex items-start space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                                            {{ $index + 1 }}
+                                        </div>
+                                        <div class="flex-1 pt-1">
+                                            <p class="text-gray-700 leading-relaxed">{{ strip_tags($benefit) }}</p>
+                                        </div>
+                                    </div>
                                 @endforeach
-                            </ul>
+                            </div>
                         @else
                             <div class="text-gray-700 prose prose-sm max-w-none">
-                                {!! $event->benefits !!}
+                                {!! str($event->benefits)->sanitizeHtml() !!}
                             </div>
                         @endif
                     </div>
@@ -131,13 +151,20 @@
                     
                     @if($event->schedule)
                     <div>
-                        <h3 class="font-medium text-gray-900 mb-2">Agenda:</h3>
+                        <h3 class="font-semibold text-gray-900 mb-4 text-lg">Agenda:</h3>
                         @if(is_array($event->schedule))
-                            <ul class="text-gray-700 list-disc list-inside space-y-1">
-                                @foreach($event->schedule as $agenda)
-                                    <li>{{ $agenda }}</li>
+                            <div class="space-y-3">
+                                @foreach($event->schedule as $index => $agenda)
+                                    <div class="flex items-start space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                                            {{ $index + 1 }}
+                                        </div>
+                                        <div class="flex-1 pt-1">
+                                            <p class="text-gray-700 leading-relaxed">{{ $agenda }}</p>
+                                        </div>
+                                    </div>
                                 @endforeach
-                            </ul>
+                            </div>
                         @else
                             <div class="text-gray-700 prose prose-sm max-w-none">
                                 {!! $event->schedule !!}

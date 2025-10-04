@@ -25,7 +25,7 @@
                 <div>
                     <h2 class="text-3xl font-bold text-gray-900 mb-6">Siapa Kami?</h2>
                     <p class="text-lg text-gray-600 mb-6 leading-relaxed">
-                        {!! str($company->description)->sanitizeHtml() !!}
+                        Platform terpercaya untuk menemukan workshop, seminar, dan pelatihan berkualitas tinggi.
                     </p>
                     <!-- Company Stats -->
                     <div class="grid grid-cols-2 gap-6 mt-8">
