@@ -239,37 +239,46 @@
                     
                     <div class="space-y-3 mb-6">
                         <div class="flex justify-between text-sm">
-                            <span class="text-gray-600">Sisa Slot:</span>
-                            @php
-                                $remainingSlots = $event->getRemainingSlots();
-                                $percentageFilled = ($event->actual_participants / $event->max_participants) * 100;
-                                $slotClass = 'text-green-600';
-                                $progressClass = 'bg-green-600';
-                                
-                                if ($percentageFilled >= 80) {
-                                    $slotClass = 'text-red-600';
-                                    $progressClass = 'bg-red-600';
-                                } elseif ($percentageFilled >= 50) {
-                                    $slotClass = 'text-yellow-600';
-                                    $progressClass = 'bg-yellow-600';
-                                }
-                            @endphp
-                            <span class="font-medium {{ $slotClass }}">
-                                {{ $remainingSlots }} dari {{ $event->max_participants }}
-                                @if($percentageFilled >= 80)
-                                    <span class="text-xs ml-1">(Hampir Penuh!)</span>
-                                @endif
-                            </span>
+                            @if(auth()->check() && auth()->user()->hasRole('super_admin'))
+                                <span class="text-gray-600">Sisa Slot:</span>
+                                @php
+                                    $remainingSlots = $event->getRemainingSlots();
+                                    $percentageFilled = ($event->actual_participants / $event->max_participants) * 100;
+                                    $slotClass = 'text-green-600';
+                                    $progressClass = 'bg-green-600';
+                                    
+                                    if ($percentageFilled >= 80) {
+                                        $slotClass = 'text-red-600';
+                                        $progressClass = 'bg-red-600';
+                                    } elseif ($percentageFilled >= 50) {
+                                        $slotClass = 'text-yellow-600';
+                                        $progressClass = 'bg-yellow-600';
+                                    }
+                                @endphp
+                                <span class="font-medium {{ $slotClass }}">
+                                    {{ $remainingSlots }} dari {{ $event->max_participants }}
+                                    @if($percentageFilled >= 80)
+                                        <span class="text-xs ml-1">(Hampir Penuh!)</span>
+                                    @endif
+                                </span>
+                            @else
+                                <span class="text-gray-600">Kapasitas:</span>
+                                <span class="font-medium text-indigo-600">
+                                    {{ $event->max_participants }} peserta
+                                </span>
+                            @endif
                         </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2">
-                            <div class="{{ $progressClass }} h-2 rounded-full transition-all duration-300" 
-                                 style="width: {{ $percentageFilled }}%"></div>
-                        </div>
-                        @if($remainingSlots <= 5 && $remainingSlots > 0)
-                            <div class="text-center text-red-600 text-sm animate-pulse">
-                                <i class="fas fa-exclamation-circle mr-1"></i>
-                                Hanya tersisa {{ $remainingSlots }} slot!
+                        @if(auth()->check() && auth()->user()->hasRole('super_admin'))
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="{{ $progressClass }} h-2 rounded-full transition-all duration-300" 
+                                     style="width: {{ $percentageFilled }}%"></div>
                             </div>
+                            @if($remainingSlots <= 5 && $remainingSlots > 0)
+                                <div class="text-center text-red-600 text-sm animate-pulse">
+                                    <i class="fas fa-exclamation-circle mr-1"></i>
+                                    Hanya tersisa {{ $remainingSlots }} slot!
+                                </div>
+                            @endif
                         @endif
                     </div>
                     

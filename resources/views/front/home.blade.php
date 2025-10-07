@@ -184,7 +184,13 @@
 
                                 <div class="flex items-center text-xs text-gray-500 mb-2">
                                     <i class="fas fa-clock mr-2"></i>
-                                    <span>{{ $event->start_time }} - {{ $event->end_time }} WIB</span>
+                                    <span>
+                                        @php
+                                            $startTime = is_string($event->start_time) ? $event->start_time : $event->start_time->format('H:i');
+                                            $endTime = is_string($event->end_time) ? $event->end_time : $event->end_time->format('H:i');
+                                        @endphp
+                                        {{ $startTime }} - {{ $endTime }} WIB
+                                    </span>
                                 </div>
 
                                 <div class="flex items-center text-xs text-gray-500 mb-4">
@@ -196,30 +202,39 @@
                                     <div class="flex flex-col space-y-1">
                                         <div class="flex items-center">
                                             <i class="fas fa-users text-indigo-500 mr-2"></i>
-                                            <span class="text-xs font-medium text-gray-700">
-                                                {{ number_format($event->actual_participants) }}/{{ number_format($event->max_participants) }}
-                                                <span class="text-gray-500 text-xs">peserta</span>
-                                            </span>
+                                            @if(auth()->check() && auth()->user()->hasRole('super_admin'))
+                                                <span class="text-xs font-medium text-gray-700">
+                                                    {{ number_format($event->actual_participants) }}/{{ number_format($event->max_participants) }}
+                                                    <span class="text-gray-500 text-xs">peserta</span>
+                                                </span>
+                                            @else
+                                                <span class="text-xs font-medium text-gray-700">
+                                                    {{ number_format($event->max_participants) }}
+                                                    <span class="text-gray-500 text-xs">peserta</span>
+                                                </span>
+                                            @endif
                                         </div>
-                                        @php
-                                            $percentage =
-                                                ($event->actual_participants / $event->max_participants) * 100;
-                                            $colorClass =
-                                                $percentage >= 90
-                                                    ? 'bg-red-500'
-                                                    : ($percentage >= 75
-                                                        ? 'bg-yellow-500'
-                                                        : ($percentage >= 50
-                                                            ? 'bg-green-500'
-                                                            : 'bg-indigo-500'));
-                                        @endphp
-                                        <div class="relative w-full">
-                                            <div class="w-full bg-gray-100 rounded-full h-1">
-                                                <div class="{{ $colorClass }} h-full rounded-full transition-all duration-500 ease-out"
-                                                    style="width: {{ $percentage }}%">
+                                        @if(auth()->check() && auth()->user()->hasRole('super_admin'))
+                                            @php
+                                                $percentage =
+                                                    ($event->actual_participants / $event->max_participants) * 100;
+                                                $colorClass =
+                                                    $percentage >= 90
+                                                        ? 'bg-red-500'
+                                                        : ($percentage >= 75
+                                                            ? 'bg-yellow-500'
+                                                            : ($percentage >= 50
+                                                                ? 'bg-green-500'
+                                                                : 'bg-indigo-500'));
+                                            @endphp
+                                            <div class="relative w-full">
+                                                <div class="w-full bg-gray-100 rounded-full h-1">
+                                                    <div class="{{ $colorClass }} h-full rounded-full transition-all duration-500 ease-out"
+                                                        style="width: {{ $percentage }}%">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endif
                                     </div>
                                     <a href="{{ route('events.show', $event) }}"
                                         class="bg-indigo-600 text-white text-sm px-4 py-2 rounded-sm hover:bg-indigo-700 transition duration-300">

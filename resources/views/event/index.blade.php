@@ -166,9 +166,15 @@
                                     <div class="flex flex-col space-y-1">
                                         <div class="flex items-center">
                                             <i class="fas fa-users {{ $colorClass }} mr-1"></i>
-                                            <span class="font-medium">
-                                                {{ number_format($event->actual_participants) }}/{{ number_format($event->max_participants) }}
-                                            </span>
+                                            @if(auth()->check() && auth()->user()->hasRole('super_admin'))
+                                                <span class="font-medium">
+                                                    {{ number_format($event->actual_participants) }}/{{ number_format($event->max_participants) }}
+                                                </span>
+                                            @else
+                                                <span class="font-medium">
+                                                    {{ number_format($event->max_participants) }} peserta (max)
+                                                </span>
+                                            @endif
                                         </div>
                                         <div class="w-full bg-gray-100 rounded-full h-1">
                                             <div class="{{ str_replace('text-', 'bg-', $colorClass) }} h-full rounded-full transition-all duration-500 ease-out"
