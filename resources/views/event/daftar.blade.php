@@ -207,10 +207,17 @@
                                 <span>{{ $event->location }}, {{ $event->city }}</span>
                             </div>
 
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-user mr-3 text-indigo-500"></i>
-                                <span>{{ $event->actual_participants }}/{{ $event->max_participants }} peserta</span>
-                            </div>
+                            @if(auth()->check() && auth()->user()->hasRole('super_admin'))
+                                <div class="flex items-center text-gray-600">
+                                    <i class="fas fa-user mr-3 text-indigo-500"></i>
+                                    <span>{{ $event->actual_participants }}/{{ $event->max_participants }} peserta</span>
+                                </div>
+                            @else
+                                <div class="flex items-center text-gray-600">
+                                    <i class="fas fa-users mr-3 text-indigo-500"></i>
+                                    <span>{{ $event->max_participants }} peserta (kapasitas)</span>
+                                </div>
+                            @endif
 
                             <div class="flex items-center text-gray-600">
                                 <i class="fas fa-tag mr-3 text-indigo-500"></i>
