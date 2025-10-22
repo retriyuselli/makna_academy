@@ -176,11 +176,13 @@
                                                 </span>
                                             @endif
                                         </div>
-                                        <div class="w-full bg-gray-100 rounded-full h-1">
-                                            <div class="{{ str_replace('text-', 'bg-', $colorClass) }} h-full rounded-full transition-all duration-500 ease-out"
-                                                 style="width: {{ $percentage }}%">
+                                        @if(auth()->check() && auth()->user()->hasRole('super_admin'))
+                                            <div class="w-full bg-gray-100 rounded-full h-1">
+                                                <div class="{{ str_replace('text-', 'bg-', $colorClass) }} h-full rounded-full transition-all duration-500 ease-out"
+                                                     style="width: {{ $percentage }}%">
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
                                     </div>
                                 </div>
 
