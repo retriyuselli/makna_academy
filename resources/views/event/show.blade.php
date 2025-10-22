@@ -74,10 +74,17 @@
                                 <i class="fas fa-map-marker-alt mr-3 text-indigo-600"></i>
                                 <span>{{ $event->location }}</span>
                             </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-users mr-3 text-indigo-600"></i>
-                                <span>{{ $event->actual_participants }}/{{ $event->max_participants }} peserta</span>
-                            </div>
+                            @if(auth()->check() && auth()->user()->hasRole('super_admin'))
+                                <div class="flex items-center">
+                                    <i class="fas fa-users mr-3 text-indigo-600"></i>
+                                    <span>{{ $event->actual_participants }}/{{ $event->max_participants }} peserta</span>
+                                </div>
+                            @else
+                                <div class="flex items-center">
+                                    <i class="fas fa-users mr-3 text-indigo-600"></i>
+                                    <span>{{ $event->max_participants }} peserta (max)</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
