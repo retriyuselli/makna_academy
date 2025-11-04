@@ -7,22 +7,22 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Breadcrumb -->
         <nav class="flex mb-6" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1 md:space-x-2 text-sm">
-                <li class="inline-flex items-center">
+            <ol class="inline-flex items-center space-x-1 md:space-x-2 text-sm w-full overflow-hidden">
+                <li class="inline-flex items-center flex-shrink-0">
                     <a href="{{ route('home') }}" class="text-gray-700 hover:text-indigo-600">
                         <i class="fas fa-home mr-1 text-xs"></i>Beranda
                     </a>
                 </li>
-                <li>
+                <li class="flex-shrink-0">
                     <div class="flex items-center">
                         <i class="fas fa-chevron-right text-gray-400 mx-1 text-xs"></i>
                         <a href="{{ route('events.index') }}" class="text-gray-700 hover:text-indigo-600">Event</a>
                     </div>
                 </li>
-                <li>
+                <li class="min-w-0 flex-1">
                     <div class="flex items-center">
-                        <i class="fas fa-chevron-right text-gray-400 mx-1 text-xs"></i>
-                        <span class="text-gray-500 truncate max-w-xs" title="{{ $event->title }}">{{ $event->title }}</span>
+                        <i class="fas fa-chevron-right text-gray-400 mx-1 text-xs flex-shrink-0"></i>
+                        <span class="text-gray-500 truncate" title="{{ $event->title }}">{{ $event->title }}</span>
                     </div>
                 </li>
             </ol>
