@@ -6,22 +6,22 @@
 <div class="min-h-screen bg-gray-50 py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Breadcrumb -->
-        <nav class="flex mb-8" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-2 text-sm">
                 <li class="inline-flex items-center">
                     <a href="{{ route('home') }}" class="text-gray-700 hover:text-indigo-600">
-                        <i class="fas fa-home mr-2"></i>Beranda
+                        <i class="fas fa-home mr-1 text-xs"></i>Beranda
                     </a>
                 </li>
                 <li>
                     <div class="flex items-center">
-                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <i class="fas fa-chevron-right text-gray-400 mx-1 text-xs"></i>
                         <a href="{{ route('events.index') }}" class="text-gray-700 hover:text-indigo-600">Event</a>
                     </div>
                 </li>
                 <li>
                     <div class="flex items-center">
-                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <i class="fas fa-chevron-right text-gray-400 mx-1 text-xs"></i>
                         <span class="text-gray-500">{{ $event->title }}</span>
                     </div>
                 </li>
@@ -56,9 +56,9 @@
                             @endif
                         </div>
                         
-                        <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ $event->title }}</h1>
+                        <h1 class="text-2xl font-bold text-gray-900 mb-3">{{ $event->title }}</h1>
                         
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-gray-600">
                             <div class="flex items-center">
                                 <i class="fas fa-calendar mr-3 text-indigo-600"></i>
                                 <span>{{ $event->start_date->format('d M Y') }}</span>
@@ -90,39 +90,39 @@
                 </div>
 
                 <!-- Event Description -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Deskripsi Event</h2>
-                    <div class="prose max-w-none text-gray-700">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5 mb-5">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-3">Deskripsi Event</h2>
+                    <div class="prose prose-sm max-w-none text-gray-700 text-sm">
                         {!! nl2br(e($event->short_description)) !!}
                     </div>
                 </div>
 
                 <!-- Event Details -->
                 @if($event->requirements || $event->benefits || $event->schedule)
-                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Informasi Tambahan</h2>
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-3">Informasi Tambahan</h2>
                     
                     @if($event->requirements)
-                    <div class="mb-6">
-                        <h3 class="font-semibold text-gray-900 mb-4 text-lg">Persyaratan:</h3>
+                    <div class="mb-5">
+                        <h3 class="font-semibold text-gray-900 mb-3 text-base">Persyaratan:</h3>
                         @php
                             $formattedRequirements = $event->getFormattedRequirements();
                         @endphp
                         @if($formattedRequirements && count($formattedRequirements) > 0)
-                            <div class="space-y-3">
+                            <div class="space-y-2">
                                 @foreach($formattedRequirements as $index => $requirement)
-                                    <div class="flex items-start space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                                    <div class="flex items-start space-x-2">
+                                        <div class="flex-shrink-0 w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-xs font-semibold">
                                             {{ $index + 1 }}
                                         </div>
-                                        <div class="flex-1 pt-1">
-                                            <p class="text-gray-700 leading-relaxed">{{ strip_tags($requirement) }}</p>
+                                        <div class="flex-1 pt-0.5">
+                                            <p class="text-gray-700 leading-relaxed text-sm">{{ strip_tags($requirement) }}</p>
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
                         @else
-                            <div class="text-gray-700 prose prose-sm max-w-none">
+                            <div class="text-gray-700 prose prose-sm max-w-none text-sm">
                                 {!! str($event->requirements)->sanitizeHtml() !!}
                             </div>
                         @endif
@@ -130,20 +130,20 @@
                     @endif
                     
                     @if($event->benefits)
-                    <div class="mb-6">
-                        <h3 class="font-semibold text-gray-900 mb-4 text-lg">Manfaat yang Didapat:</h3>
+                    <div class="mb-5">
+                        <h3 class="font-semibold text-gray-900 mb-3 text-base">Manfaat yang Didapat:</h3>
                         @php
                             $formattedBenefits = $event->getFormattedBenefits();
                         @endphp
                         @if($formattedBenefits && count($formattedBenefits) > 0)
-                            <div class="space-y-3">
+                            <div class="space-y-2">
                                 @foreach($formattedBenefits as $index => $benefit)
-                                    <div class="flex items-start space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                                    <div class="flex items-start space-x-2">
+                                        <div class="flex-shrink-0 w-6 h-6 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xs font-semibold">
                                             {{ $index + 1 }}
                                         </div>
-                                        <div class="flex-1 pt-1">
-                                            <p class="text-gray-700 leading-relaxed">{{ strip_tags($benefit) }}</p>
+                                        <div class="flex-1 pt-0.5">
+                                            <p class="text-gray-700 leading-relaxed text-sm">{{ strip_tags($benefit) }}</p>
                                         </div>
                                     </div>
                                 @endforeach
@@ -158,22 +158,22 @@
                     
                     @if($event->schedule)
                     <div>
-                        <h3 class="font-semibold text-gray-900 mb-4 text-lg">Agenda:</h3>
+                        <h3 class="font-semibold text-gray-900 mb-3 text-base">Agenda:</h3>
                         @if(is_array($event->schedule))
-                            <div class="space-y-3">
+                            <div class="space-y-2">
                                 @foreach($event->schedule as $index => $agenda)
-                                    <div class="flex items-start space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                                    <div class="flex items-start space-x-2">
+                                        <div class="flex-shrink-0 w-6 h-6 bg-purple-600 text-white rounded-full flex items-center justify-center text-xs font-semibold">
                                             {{ $index + 1 }}
                                         </div>
-                                        <div class="flex-1 pt-1">
-                                            <p class="text-gray-700 leading-relaxed">{{ $agenda }}</p>
+                                        <div class="flex-1 pt-0.5">
+                                            <p class="text-gray-700 leading-relaxed text-sm">{{ $agenda }}</p>
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
                         @else
-                            <div class="text-gray-700 prose prose-sm max-w-none">
+                            <div class="text-gray-700 prose prose-sm max-w-none text-sm">
                                 {!! $event->schedule !!}
                             </div>
                         @endif
@@ -186,51 +186,51 @@
             <!-- Sidebar -->
             <div class="lg:col-span-1">
                 <!-- Registration Card -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6 sticky top-6">
-                    <div class="text-center mb-6">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5 mb-5 sticky top-6">
+                    <div class="text-center mb-5">
                         @if($event->is_free)
-                            <div class="text-3xl font-bold text-green-600 mb-2">GRATIS</div>
+                            <div class="text-2xl font-bold text-green-600 mb-2">GRATIS</div>
                         @elseif($event->eventCategory && str_contains(strtolower($event->eventCategory->name), 'expo'))
                             <div class="space-y-2">
-                                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-                                    <div class="text-sm font-medium text-yellow-800 mb-1">Gold Package</div>
-                                    <div class="text-2xl font-bold text-yellow-600">
+                                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-2">
+                                    <div class="text-xs font-medium text-yellow-800 mb-1">Gold Package</div>
+                                    <div class="text-lg font-bold text-yellow-600">
                                         Rp {{ number_format($event->price_gold, 0, ',', '.') }}
                                     </div>
                                     @if($event->has_down_payment)
-                                        <div class="text-sm text-yellow-700 mt-1">
+                                        <div class="text-xs text-yellow-700 mt-1">
                                             DP: Rp {{ number_format($event->getPackageDownPayment('gold'), 0, ',', '.') }}
                                         </div>
                                     @endif
                                 </div>
-                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                                    <div class="text-sm font-medium text-blue-800 mb-1">Platinum Package</div>
-                                    <div class="text-2xl font-bold text-blue-600">
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-2">
+                                    <div class="text-xs font-medium text-blue-800 mb-1">Platinum Package</div>
+                                    <div class="text-lg font-bold text-blue-600">
                                         Rp {{ number_format($event->price_platinum, 0, ',', '.') }}
                                     </div>
                                     @if($event->has_down_payment)
-                                        <div class="text-sm text-blue-700 mt-1">
+                                        <div class="text-xs text-blue-700 mt-1">
                                             DP: Rp {{ number_format($event->getPackageDownPayment('platinum'), 0, ',', '.') }}
                                         </div>
                                     @endif
                                 </div>
                             </div>
                         @else
-                            <div class="text-3xl font-bold text-indigo-600 mb-2">
+                            <div class="text-2xl font-bold text-indigo-600 mb-2">
                                 Rp {{ number_format($event->price, 0, ',', '.') }}
                             </div>
                             @if($event->has_down_payment)
-                                <div class="text-sm text-indigo-700 mt-1">
+                                <div class="text-xs text-indigo-700 mt-1">
                                     DP: Rp {{ number_format($event->getPackageDownPayment('regular'), 0, ',', '.') }}
                                 </div>
                             @endif
                         @endif
-                        <p class="text-gray-600">per peserta</p>
+                        <p class="text-gray-600 text-sm">per peserta</p>
                         
                         @if($event->has_down_payment && !$event->is_free)
-                            <div class="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                                <div class="flex items-center justify-center text-blue-800 text-sm">
-                                    <i class="fas fa-info-circle mr-2"></i>
+                            <div class="mt-2 p-2 bg-blue-50 border border-blue-200 rounded-lg">
+                                <div class="flex items-center justify-center text-blue-800 text-xs">
+                                    <i class="fas fa-info-circle mr-1"></i>
                                     <span class="font-medium">Tersedia Sistem Down Payment</span>
                                 </div>
                                 <div class="text-xs text-blue-600 mt-1">
