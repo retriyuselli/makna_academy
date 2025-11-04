@@ -22,7 +22,7 @@
                 <li>
                     <div class="flex items-center">
                         <i class="fas fa-chevron-right text-gray-400 mx-1 text-xs"></i>
-                        <span class="text-gray-500">{{ $event->title }}</span>
+                        <span class="text-gray-500 truncate max-w-xs" title="{{ $event->title }}">{{ $event->title }}</span>
                     </div>
                 </li>
             </ol>
