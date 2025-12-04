@@ -83,9 +83,6 @@ Route::middleware('auth')->group(function () {
     Route::prefix('ticket')->name('ticket.')->group(function () {
         Route::get('/{registration}/download', [TicketController::class, 'download'])->name('download');
     });
-    
-    // Public certificate verification
-    Route::get('verify-certificate/{number}', [CertificateController::class, 'verify'])->name('certificate.verify');
 });
 
 // Google OAuth routes
@@ -98,3 +95,5 @@ Route::prefix('auth/google')->name('google.')->group(function () {
 Route::get('/avatar-test', [AvatarTestController::class, 'index'])->name('avatar.test');
 
 require __DIR__.'/auth.php';
+// Public certificate verification
+Route::get('verify-certificate/{number}', [CertificateController::class, 'verify'])->name('certificate.verify');

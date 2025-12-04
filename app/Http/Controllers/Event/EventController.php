@@ -196,8 +196,8 @@ class EventController extends Controller
                     : 'Silakan selesaikan pembayaran Anda.';
                 
                 return redirect()->route('payment.show', $registration->invoice_number)
-                    ->with('success')
-                    ->with('payment_status');
+                    ->with('success', $message)
+                    ->with('payment_status', $registration->payment_status);
             }
 
             $event->increment('current_participants');

@@ -22,9 +22,9 @@
                 <div class="bg-gray-50 p-4 rounded-lg">
                     <h5 class="font-medium text-gray-900 mb-2">Informasi Rekening</h5>
                     <div class="space-y-2 text-sm text-gray-600">
-                        <p>Bank: BCA</p>
-                        <p>No. Rekening: 1234567890</p>
-                        <p>Atas Nama: PT Makna Academy</p>
+                        <p>Bank : Mandiri</p>
+                        <p>No. Rekening : 1130051511115</p>
+                        <p>Atas Nama : PT. Makna Kreatif Indonesia</p>
                     </div>
                 </div>
 

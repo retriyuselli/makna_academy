@@ -9,9 +9,9 @@ class PaymentProcessor
     public function processBankTransfer(Payment $payment): array
     {
         return [
-            'bank_name' => 'BCA',
-            'account_number' => '1234567890',
-            'account_name' => 'PT Makna Academy',
+            'bank_name' => 'Mandiri',
+            'account_number' => '1130051511115',
+            'account_name' => 'PT Makna Kreatif Indonesia',
             'instructions' => [
                 'Transfer the exact amount to avoid payment verification issues',
                 'Include your invoice number in the transfer description',

@@ -12,6 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Hanya jalankan perubahan enum pada MySQL. SQLite tidak mendukung ALTER ENUM.
+        if (\Illuminate\Support\Facades\DB::getDriverName() !== 'mysql') {
+            return;
+        }
         // First, expand the enum to include new values while keeping old ones
         DB::statement("ALTER TABLE event_registrations MODIFY COLUMN payment_status ENUM('pending', 'paid', 'failed', 'free', 'down_payment_paid', 'fully_paid', 'waiting_verification') DEFAULT 'pending'");
         
@@ -27,6 +31,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        if (\Illuminate\Support\Facades\DB::getDriverName() !== 'mysql') {
+            return;
+        }
         // First expand enum to include old values
         DB::statement("ALTER TABLE event_registrations MODIFY COLUMN payment_status ENUM('pending', 'paid', 'failed', 'free', 'down_payment_paid', 'fully_paid', 'waiting_verification') DEFAULT 'pending'");
         

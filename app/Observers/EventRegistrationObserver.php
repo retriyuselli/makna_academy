@@ -39,18 +39,24 @@ class EventRegistrationObserver
             $this->updateParticipantCount($eventRegistration->event_id);
         }
 
-        // Jika status pembayaran berubah menjadi 'paid'
-        if ($eventRegistration->wasChanged('payment_status') && $eventRegistration->payment_status === 'paid') {
+        // Jika status pembayaran berubah menjadi 'fully_paid' atau 'down_payment_paid'
+        if ($eventRegistration->wasChanged('payment_status') && in_array($eventRegistration->payment_status, [
+            \App\Models\EventRegistration::PAYMENT_STATUS_FULLY_PAID,
+            \App\Models\EventRegistration::PAYMENT_STATUS_DOWN_PAYMENT_PAID,
+            \App\Models\EventRegistration::PAYMENT_STATUS_FREE,
+        ])) {
             Activity::create([
                 'user_id' => $eventRegistration->user_id,
                 'type' => 'payment',
-                'description' => 'Pembayaran berhasil untuk event ' . $eventRegistration->event->title,
+                'description' => 'Pembayaran diperbarui untuk event ' . $eventRegistration->event->title,
                 'action_url' => route('events.show', $eventRegistration->event),
-                'status' => 'success',
+                'status' => $eventRegistration->payment_status,
                 'metadata' => [
                     'event_id' => $eventRegistration->event_id,
                     'registration_id' => $eventRegistration->id,
-                    'payment_amount' => $eventRegistration->event->price
+                    'payment_amount' => $eventRegistration->payment_amount,
+                    'down_payment_amount' => $eventRegistration->down_payment_amount,
+                    'remaining_amount' => $eventRegistration->remaining_amount,
                 ]
             ]);
         }

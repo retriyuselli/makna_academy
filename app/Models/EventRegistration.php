@@ -147,7 +147,7 @@ class EventRegistration extends Model
      */
     public function isEligibleForCertificate(): bool
     {
-        return $this->payment_status === 'paid' &&
+        return $this->isPaid() &&
                $this->is_attended &&
                $this->event->end_date < now();
     }
