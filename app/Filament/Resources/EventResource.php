@@ -83,7 +83,11 @@ class EventResource extends Resource
                         Forms\Components\TextInput::make('title')
                             ->required()
                             ->maxLength(255)
-                            ->label('Judul Event'),
+                            ->label('Judul Event')
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function (string $state, Set $set) {
+                                $set('slug', \Illuminate\Support\Str::slug($state));
+                            }),
                         Forms\Components\TextInput::make('slug')
                             ->required()
                             ->maxLength(255)
@@ -118,6 +122,8 @@ class EventResource extends Resource
                             ->image()
                             ->directory('events')
                             ->imageEditor()
+                            ->downloadable()
+                            ->openable()
                             ->imagePreviewHeight('250')
                             ->maxSize(2048)
                             ->label('Gambar Event'),

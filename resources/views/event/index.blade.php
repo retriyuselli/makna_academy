@@ -112,17 +112,18 @@
             @if ($events->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     @foreach ($events as $event)
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                        <div
+                            class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 h-full flex flex-col">
                             @if ($event->image)
                                 <img src="{{ Storage::url($event->image) }}" alt="{{ $event->title }}"
-                                    class="w-full h-auto object-contain">
+                                    class="w-full h-80 object-cover">
                             @else
                                 <div class="w-full h-80 bg-gray-200 flex items-center justify-center">
                                     <i class="fas fa-calendar-alt text-3xl text-gray-400"></i>
                                 </div>
                             @endif
 
-                            <div class="p-4">
+                            <div class="p-4 flex-1 flex flex-col">
                                 <div class="flex items-center justify-between mb-2">
                                     @if ($event->category)
                                         <span
@@ -159,14 +160,19 @@
                                     </div>
                                     @php
                                         $percentage = ($event->actual_participants / $event->max_participants) * 100;
-                                        $colorClass = $percentage >= 90 ? 'text-red-500' : 
-                                                    ($percentage >= 75 ? 'text-yellow-500' : 
-                                                    ($percentage >= 50 ? 'text-green-500' : 'text-indigo-500'));
+                                        $colorClass =
+                                            $percentage >= 90
+                                                ? 'text-red-500'
+                                                : ($percentage >= 75
+                                                    ? 'text-yellow-500'
+                                                    : ($percentage >= 50
+                                                        ? 'text-green-500'
+                                                        : 'text-indigo-500'));
                                     @endphp
                                     <div class="flex flex-col space-y-1">
                                         <div class="flex items-center">
                                             <i class="fas fa-users {{ $colorClass }} mr-1"></i>
-                                            @if(auth()->check() && auth()->user()->hasRole('super_admin'))
+                                            @if (auth()->check() && auth()->user()->hasRole('super_admin'))
                                                 <span class="font-medium">
                                                     {{ number_format($event->actual_participants) }}/{{ number_format($event->max_participants) }}
                                                 </span>
@@ -176,10 +182,10 @@
                                                 </span>
                                             @endif
                                         </div>
-                                        @if(auth()->check() && auth()->user()->hasRole('super_admin'))
+                                        @if (auth()->check() && auth()->user()->hasRole('super_admin'))
                                             <div class="w-full bg-gray-100 rounded-full h-1">
                                                 <div class="{{ str_replace('text-', 'bg-', $colorClass) }} h-full rounded-full transition-all duration-500 ease-out"
-                                                     style="width: {{ $percentage }}%">
+                                                    style="width: {{ $percentage }}%">
                                                 </div>
                                             </div>
                                         @endif
@@ -187,7 +193,7 @@
                                 </div>
 
                                 <a href="{{ route('events.show', $event) }}"
-                                    class="w-full bg-indigo-600 text-white px-3 py-2 rounded-lg hover:bg-indigo-700 transition duration-300 inline-block text-center text-xs">
+                                    class="mt-auto w-full bg-indigo-600 text-white px-3 py-2 rounded-lg hover:bg-indigo-700 transition duration-300 inline-block text-center text-xs">
                                     Lihat Detail
                                 </a>
                             </div>
