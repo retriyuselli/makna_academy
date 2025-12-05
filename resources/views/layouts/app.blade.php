@@ -84,6 +84,8 @@
             transform: scale(1.05);
         }
     </style>
+    <link rel="icon" type="image/png" href="{{ asset('storage/images/icon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('storage/images/icon.png') }}">
 </head>
 
 <body class="bg-gray-50">

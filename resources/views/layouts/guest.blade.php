@@ -117,7 +117,9 @@
                 box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
             }
         </style>
-        
+        <link rel="icon" type="image/png" href="{{ asset('storage/images/icon.png') }}">
+        <link rel="shortcut icon" href="{{ asset('storage/images/icon.png') }}">
+
         <!-- Alpine.js for interactive components -->
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     </head>
