@@ -6,6 +6,9 @@
 cd /home/u380354370/domains/maknaacademy.com/public_html
 ```
 
+Google OAuth
+https://console.cloud.google.com/
+
 ## GitHhub
 
 git add .
